@@ -4,11 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BoolBnB_MAUI"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:pages="clr-namespace:BoolBnB_MAUI.Pages"
+    Shell.BackgroundColor="{StaticResource Gray100}"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.ForegroundColor="Black">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
 
 </Shell>

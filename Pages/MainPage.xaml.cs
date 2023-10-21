@@ -1,4 +1,4 @@
-﻿namespace BoolBnB_MAUI
+﻿namespace BoolBnB_MAUI.Pages
 {
     public partial class MainPage : ContentPage
     {
