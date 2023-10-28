@@ -10,8 +10,53 @@
     Shell.ForegroundColor="Black">
 
     <ShellContent
-        Title="Home"
+        Title="Main"
         ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
-
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        Route="LoginPage" />
+    <ShellContent
+        Title="Homes"
+        ContentTemplate="{DataTemplate pages:HomesPage}"
+        Route="HomesPage" />
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate pages:HomePage}"
+        Route="HomePage" />
+    <ShellContent
+        Title="Create House"
+        ContentTemplate="{DataTemplate pages:CreateHousePage}"
+        Route="CreateHousePage" />
+    <ShellContent
+        Title="Update House"
+        ContentTemplate="{DataTemplate pages:UpdateHousePage}"
+        Route="UpdateHousePage" />
+    <ShellContent
+        Title="My Houses"
+        ContentTemplate="{DataTemplate pages:MyHousesPage}"
+        Route="MyHousesPage" />
+    <ShellContent
+        Title="My House"
+        ContentTemplate="{DataTemplate pages:MyHousePage}"
+        Route="MyHousePage" />
+    <FlyoutItem>
+        <ShellContent
+            Title="Dashboard"
+            ContentTemplate="{DataTemplate pages:DashboardPage}"
+            Route="DashboardPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Messages">
+        <ShellContent
+            Title="Messages"
+            ContentTemplate="{DataTemplate pages:MessagesPage}"
+            Route="MessagesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Settings">
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate pages:SettingsPage}"
+            Route="SettingsPage" />
+    </FlyoutItem>
 </Shell>
