@@ -1,24 +1,29 @@
-﻿namespace BoolBnB_MAUI.Pages
+﻿
+namespace BoolBnB_MAUI.Pages
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void ToggleOptions(object sender, EventArgs e)
         {
-            count++;
+            // Show or hide the drop-down menu when the button is pressed
+            optionsStack.IsVisible = !optionsStack.IsVisible;
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        private void GoToDashboard(object sender, EventArgs e)
+        {
+            // Action to go to dashboard
+            Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+        }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private void Logout(object sender, EventArgs e)
+        {
+            // Action to go to logout
+            Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
 }

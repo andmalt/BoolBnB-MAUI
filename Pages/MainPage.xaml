@@ -4,39 +4,36 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25"
-            VerticalOptions="Center">
-
-            <Image
-                HeightRequest="200"
-                HorizontalOptions="Center"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                Source="dotnet_bot.png" />
-
-            <Label
-                FontSize="32"
-                HorizontalOptions="Center"
-                SemanticProperties.HeadingLevel="Level1"
-                Text="Hello, World!" />
-
-            <Label
-                FontSize="18"
-                HorizontalOptions="Center"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                SemanticProperties.HeadingLevel="Level2"
-                Text="Welcome to .NET Multi-platform App UI" />
-
+    <VerticalStackLayout Padding="5" HorizontalOptions="FillAndExpand">
+        <ContentView HorizontalOptions="End">
             <Button
-                x:Name="CounterBtn"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Text="Click me" />
+                Clicked="ToggleOptions"
+                FontSize="24"
+                Text="&#x2630;"
+                WidthRequest="100" />
+        </ContentView>
+        <ContentView HorizontalOptions="End">
+            <StackLayout
+                x:Name="optionsStack"
+                Margin="5"
+                Padding="5"
+                IsVisible="False">
+                <Button
+                    BackgroundColor="Grey"
+                    Clicked="GoToDashboard"
+                    CornerRadius="0"
+                    Text="Dashboard"
+                    WidthRequest="200" />
+                <Button
+                    BackgroundColor="Grey"
+                    Clicked="Logout"
+                    CornerRadius="0"
+                    Text="Logout"
+                    WidthRequest="200" />
+            </StackLayout>
+        </ContentView>
 
-        </VerticalStackLayout>
-    </ScrollView>
+
+    </VerticalStackLayout>
 
 </ContentPage>

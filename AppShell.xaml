@@ -10,38 +10,50 @@
     Shell.ForegroundColor="Black">
 
     <ShellContent
-        Title="Main"
         ContentTemplate="{DataTemplate pages:MainPage}"
-        Route="MainPage" />
+        Route="MainPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        Title="Login"
         ContentTemplate="{DataTemplate pages:LoginPage}"
-        Route="LoginPage" />
+        Route="LoginPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        Title="Homes"
         ContentTemplate="{DataTemplate pages:HomesPage}"
-        Route="HomesPage" />
+        Route="HomesPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="HomePage" />
+        Route="HomePage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
         Title="Create House"
         ContentTemplate="{DataTemplate pages:CreateHousePage}"
-        Route="CreateHousePage" />
+        Route="CreateHousePage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
         Title="Update House"
         ContentTemplate="{DataTemplate pages:UpdateHousePage}"
-        Route="UpdateHousePage" />
-    <ShellContent
-        Title="My Houses"
-        ContentTemplate="{DataTemplate pages:MyHousesPage}"
-        Route="MyHousesPage" />
+        Route="UpdateHousePage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
         Title="My House"
         ContentTemplate="{DataTemplate pages:MyHousePage}"
-        Route="MyHousePage" />
-    <FlyoutItem>
+        Route="MyHousePage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
+    <FlyoutItem Title="My houses">
+        <ShellContent
+            Title="My Houses"
+            ContentTemplate="{DataTemplate pages:MyHousesPage}"
+            Route="MyHousesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Info">
         <ShellContent
             Title="Dashboard"
             ContentTemplate="{DataTemplate pages:DashboardPage}"
