@@ -19,7 +19,7 @@ namespace BoolBnB_MAUI
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddTransient<AuthService>();
+            builder.Services.AddScoped<AuthService>();
 
             return builder.Build();
         }

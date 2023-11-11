@@ -14,7 +14,22 @@
         </ContentView>
         <ContentView HorizontalOptions="End">
             <StackLayout
-                x:Name="optionsStack"
+                x:Name="optionsStackNoAuth"
+                Margin="5"
+                Padding="5"
+                IsVisible="False">
+                <Button
+                    BackgroundColor="Grey"
+                    Clicked="Login"
+                    CornerRadius="0"
+                    Text="Login"
+                    WidthRequest="200" />
+            </StackLayout>
+        </ContentView>
+
+        <ContentView HorizontalOptions="End">
+            <StackLayout
+                x:Name="optionsStackAuth"
                 Margin="5"
                 Padding="5"
                 IsVisible="False">
@@ -32,8 +47,6 @@
                     WidthRequest="200" />
             </StackLayout>
         </ContentView>
-
-
     </VerticalStackLayout>
 
 </ContentPage>
