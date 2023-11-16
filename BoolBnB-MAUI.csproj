@@ -57,10 +57,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\InfoPage.xaml.cs">
+	    <DependentUpon>InfoPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Pages\CreateHousePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\DashboardPage.xaml">
+	  <MauiXaml Update="Pages\InfoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">

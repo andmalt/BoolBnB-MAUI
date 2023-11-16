@@ -55,9 +55,9 @@
     </FlyoutItem>
     <FlyoutItem Title="Info">
         <ShellContent
-            Title="Dashboard"
-            ContentTemplate="{DataTemplate pages:DashboardPage}"
-            Route="DashboardPage" />
+            Title="Info"
+            ContentTemplate="{DataTemplate pages:InfoPage}"
+            Route="InfoPage" />
     </FlyoutItem>
     <FlyoutItem Title="Messages">
         <ShellContent

@@ -20,7 +20,7 @@ public partial class LoginPage : ContentPage
         if (isLogin)
         {
             errPass.IsVisible = false;
-            await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(InfoPage)}");
         }
         else
         {

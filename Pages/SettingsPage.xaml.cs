@@ -16,7 +16,7 @@ public partial class SettingsPage : ContentPage
     {
         base.OnAppearing();
 
-		Token = await AuthService.GetToken();
+		Token = await _authService.GetToken();
 		if (Token == null)
 		{
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");

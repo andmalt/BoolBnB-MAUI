@@ -4,20 +4,39 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <ContentPage.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="ImageButton">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightGray" />
+                                <Setter Property="CornerRadius" Value="10" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <VerticalStackLayout Padding="5" HorizontalOptions="FillAndExpand">
         <ContentView HorizontalOptions="End">
-            <Button
+            <ImageButton
+                x:Name="btnToggle"
                 Clicked="ToggleOptions"
-                FontSize="24"
-                Text="&#x2630;"
-                WidthRequest="100" />
+                HeightRequest="50"
+                Source="menuicon.svg"
+                Style="{StaticResource MyButtonStyle}"
+                WidthRequest="70" />
         </ContentView>
-        <ContentView HorizontalOptions="End">
-            <StackLayout
-                x:Name="optionsStackNoAuth"
-                Margin="5"
-                Padding="5"
-                IsVisible="False">
+        <ContentView
+            x:Name="optionsStackNoAuth"
+            HorizontalOptions="End"
+            IsVisible="False">
+            <StackLayout Margin="1" Padding="1">
                 <Button
                     BackgroundColor="Grey"
                     Clicked="Login"
@@ -27,12 +46,11 @@
             </StackLayout>
         </ContentView>
 
-        <ContentView HorizontalOptions="End">
-            <StackLayout
-                x:Name="optionsStackAuth"
-                Margin="5"
-                Padding="5"
-                IsVisible="False">
+        <ContentView
+            x:Name="optionsStackAuth"
+            HorizontalOptions="End"
+            IsVisible="False">
+            <StackLayout Margin="1" Padding="1">
                 <Button
                     BackgroundColor="Grey"
                     Clicked="GoToDashboard"
@@ -48,5 +66,4 @@
             </StackLayout>
         </ContentView>
     </VerticalStackLayout>
-
 </ContentPage>

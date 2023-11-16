@@ -20,7 +20,7 @@ namespace BoolBnB_MAUI.Services
             };
         }
 
-        public static async Task<bool> IsAuthenticatedAsync()
+        public async Task<bool> IsAuthenticatedAsync()
         {
             string isAuth = await SecureStorage.GetAsync(AuthKey);
             Console.WriteLine($"TOKEN: {isAuth}");
@@ -31,7 +31,7 @@ namespace BoolBnB_MAUI.Services
             return false;
         }
 
-        public static async Task<string> GetToken()
+        public async Task<string> GetToken()
         {
             string isAuth = await SecureStorage.GetAsync(AuthKey);
             if (isAuth != null)
@@ -39,6 +39,11 @@ namespace BoolBnB_MAUI.Services
                 return isAuth;
             }
             return null;
+        }
+
+        public bool DestroyToken()
+        {
+            return SecureStorage.Remove(AuthKey);
         }
 
         public async Task<bool> Login(string email, string password)

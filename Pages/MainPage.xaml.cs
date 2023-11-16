@@ -20,7 +20,7 @@ namespace BoolBnB_MAUI.Pages
             optionsStackNoAuth.IsVisible = false;
             optionsStackAuth.IsVisible = false;
 
-            if (await AuthService.IsAuthenticatedAsync())
+            if (await _authService.IsAuthenticatedAsync())
             {
                 IsAuth = true;
             }
@@ -47,13 +47,15 @@ namespace BoolBnB_MAUI.Pages
         private void GoToDashboard(object sender, EventArgs e)
         {
             // Action to go to dashboard
-            Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+            Shell.Current.GoToAsync($"//{nameof(InfoPage)}");
         }
 
-        private void Logout(object sender, EventArgs e)
+        private async void Logout(object sender, EventArgs e)
         {
+            var token = await _authService.GetToken();
+            await _authService.Logout(token);
             // Action to go to logout
-            Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
         
         private void Login(object sender, EventArgs e)
