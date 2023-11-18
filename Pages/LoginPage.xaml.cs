@@ -25,6 +25,8 @@ public partial class LoginPage : ContentPage
         else
         {
             errPass.IsVisible = true;
+            await Task.Delay(3000);
+            errPass.IsVisible = false;
         }
     }
     private void OnEmailChanged(object sender, TextChangedEventArgs e)

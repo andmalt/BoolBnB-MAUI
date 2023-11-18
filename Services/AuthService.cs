@@ -69,7 +69,7 @@ namespace BoolBnB_MAUI.Services
             catch (HttpRequestException ex) 
             {
                 Console.WriteLine($"Error Login API : {ex.Message}");
-                return false;
+                throw;
             }            
         }
 
@@ -89,12 +89,14 @@ namespace BoolBnB_MAUI.Services
                         return true;
                     }
                 }
+                SecureStorage.Remove(AuthKey);
                 return false;
             }
             catch (HttpRequestException ex)
             {
                 Console.WriteLine($"Error Login API : {ex.Message}");
-                return false;
+                // add a modal to show network error
+                throw;
             }
             
         }

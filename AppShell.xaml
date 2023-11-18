@@ -53,17 +53,17 @@
             ContentTemplate="{DataTemplate pages:MyHousesPage}"
             Route="MyHousesPage" />
     </FlyoutItem>
-    <FlyoutItem Title="Info">
-        <ShellContent
-            Title="Info"
-            ContentTemplate="{DataTemplate pages:InfoPage}"
-            Route="InfoPage" />
-    </FlyoutItem>
     <FlyoutItem Title="Messages">
         <ShellContent
             Title="Messages"
             ContentTemplate="{DataTemplate pages:MessagesPage}"
             Route="MessagesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Info">
+        <ShellContent
+            Title="Info"
+            ContentTemplate="{DataTemplate pages:InfoPage}"
+            Route="InfoPage" />
     </FlyoutItem>
     <FlyoutItem Title="Settings">
         <ShellContent

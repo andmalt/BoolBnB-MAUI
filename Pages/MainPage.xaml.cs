@@ -63,5 +63,10 @@ namespace BoolBnB_MAUI.Pages
             // Action to go to login
             Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
+
+        private void GoToHomesPages(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync($"//{nameof(HomesPage)}");
+        }
     }
 }

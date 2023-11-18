@@ -1,0 +1,4 @@
+﻿[*.{cs,vb}]
+
+# IDE0028: Semplifica l'inizializzazione della raccolta
+dotnet_style_collection_initializer = false

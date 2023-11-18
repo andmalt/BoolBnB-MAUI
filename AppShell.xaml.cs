@@ -14,7 +14,7 @@ namespace BoolBnB_MAUI
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(CreateHousePage), typeof(CreateHousePage));
             Routing.RegisterRoute(nameof(UpdateHousePage), typeof(UpdateHousePage));
-            Routing.RegisterRoute(nameof(DashboardPage), typeof(DashboardPage));
+            Routing.RegisterRoute(nameof(InfoPage), typeof(InfoPage));
             Routing.RegisterRoute(nameof(MyHousesPage), typeof(MyHousesPage));
             Routing.RegisterRoute(nameof(MyHousePage), typeof(MyHousePage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));

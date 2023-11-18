@@ -5,24 +5,23 @@ namespace BoolBnB_MAUI.Pages;
 public partial class InfoPage : ContentPage
 {
     private readonly AuthService _authService;
-    private bool IsAuth {  get; set; }
     public InfoPage()
 	{
 		InitializeComponent();
         _authService = new AuthService();
     }
 
-    protected async override void OnAppearing()
+    protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        base.OnAppearing();
+        base.OnNavigatedTo(args);
 
         if (await _authService.IsAuthenticatedAsync())
         {
-            IsAuth = true;
+            return;
         }
         else
         {
-            IsAuth = false;
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
     }
 }

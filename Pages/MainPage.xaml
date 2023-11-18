@@ -65,5 +65,9 @@
                     WidthRequest="200" />
             </StackLayout>
         </ContentView>
+
+        <ContentView>
+            <Button Clicked="GoToHomesPages" Text="Vai alle case" />
+        </ContentView>
     </VerticalStackLayout>
 </ContentPage>

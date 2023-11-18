@@ -8,7 +8,7 @@ namespace BoolBnB_MAUI.Services
     public class HttpService : IHttpService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://cfa7-82-49-183-33.ngrok-free.app";
+        private const string BaseUrl = "https://772b-82-49-183-33.ngrok-free.app";
         public HttpService() {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
