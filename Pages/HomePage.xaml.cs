@@ -17,9 +17,8 @@ public partial class HomePage : ContentPage
         get => apartment;
         set
         {
-            apartment = value;
             OnPropertyChanged(nameof(Apartment));
-            BindingContext = apartment;
+            AddHouse(value);
         }
     }
     public HomePage()
@@ -33,35 +32,39 @@ public partial class HomePage : ContentPage
         };
     }
 
-    //protected override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    loadingIndicator.IsRunning = true;
-    //    loadingIndicator.IsVisible = true;
-    //    Console.WriteLine($"Apartment id: {apartment.Id}");
-    //    //GetApartment(apartment);
-    //    loadingIndicator.IsRunning = false;
-    //    loadingIndicator.IsVisible = false;
-    //}
+    protected void AddHouse(Apartment apartment)
+    {
+        if (apartment == null)
+        {
+            Console.WriteLine("No House here!!!");
+            return;
+        }
+        loadingIndicator.IsRunning = true;
+        loadingIndicator.IsVisible = true;
+        GetApartment(apartment);
+        loadingIndicator.IsRunning = false;
+        loadingIndicator.IsVisible = false;
+    }
 
-    //protected async void GetApartment(Apartment apartment)
-    //{
-    //    Console.WriteLine($"Apartment ID: {apartment.Id}");
-    //    try
-    //    {
-    //        HttpResponseMessage response = await _httpService.Post($"/api/house/{Apartment.Id}");
-    //        var responseContent = await response.Content.ReadAsStringAsync();
-    //        var content = JsonSerializer.Deserialize<HouseResponse>(responseContent, _serializerOptions);
-    //        //Console.WriteLine($"Response => {content.Apartments.Count}");
-    //        if (content.Success)
-    //        {
-    //            BindingContext = content.Apartment;
-    //        }
-    //    }
-    //    catch (HttpRequestException ex)
-    //    {
-    //        Console.WriteLine($"ERROR (getApartments):{ex.Message}");
-    //        throw;
-    //    }
-    //}
+    protected async void GetApartment(Apartment apartment)
+    {
+        Console.WriteLine($"Apartment ID: {apartment.Id}");
+        try
+        {
+            HttpResponseMessage response = await _httpService.Post($"/api/house/{apartment.Id}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var content = JsonSerializer.Deserialize<HouseResponse>(responseContent, _serializerOptions);
+            //Console.WriteLine($"Response => {content.Apartments.Count}");
+            if (content.Success)
+            {
+                BindingContext = content.Apartment;
+                apartment = content.Apartment;
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"ERROR (getApartments):{ex.Message}");
+            throw;
+        }
+    }
 }
