@@ -2,69 +2,10 @@
 <ContentPage
     x:Class="BoolBnB_MAUI.Pages.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-    <ContentPage.Resources>
-        <Style x:Key="MyButtonStyle" TargetType="ImageButton">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="LightGray" />
-                                <Setter Property="CornerRadius" Value="10" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
-
-    <VerticalStackLayout Padding="5" HorizontalOptions="FillAndExpand">
-        <ContentView HorizontalOptions="End">
-            <ImageButton
-                x:Name="btnToggle"
-                Clicked="ToggleOptions"
-                HeightRequest="50"
-                Source="menuicon.svg"
-                Style="{StaticResource MyButtonStyle}"
-                WidthRequest="70" />
-        </ContentView>
-        <ContentView
-            x:Name="optionsStackNoAuth"
-            HorizontalOptions="End"
-            IsVisible="False">
-            <StackLayout Margin="1" Padding="1">
-                <Button
-                    BackgroundColor="Grey"
-                    Clicked="Login"
-                    CornerRadius="0"
-                    Text="Login"
-                    WidthRequest="200" />
-            </StackLayout>
-        </ContentView>
-
-        <ContentView
-            x:Name="optionsStackAuth"
-            HorizontalOptions="End"
-            IsVisible="False">
-            <StackLayout Margin="1" Padding="1">
-                <Button
-                    BackgroundColor="Grey"
-                    Clicked="GoToDashboard"
-                    CornerRadius="0"
-                    Text="Dashboard"
-                    WidthRequest="200" />
-                <Button
-                    BackgroundColor="Grey"
-                    Clicked="Logout"
-                    CornerRadius="0"
-                    Text="Logout"
-                    WidthRequest="200" />
-            </StackLayout>
-        </ContentView>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:BoolBnB_MAUI.Components">
+    <VerticalStackLayout>
+        <components:HeaderContent IsAuthenticated="{Binding IsAuth}" />
 
         <ContentView>
             <Button Clicked="GoToHomesPages" Text="Vai alle case" />

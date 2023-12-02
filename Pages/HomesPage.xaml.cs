@@ -38,12 +38,21 @@ public partial class HomesPage : ContentPage
 		try
 		{
             HttpResponseMessage response = await _httpService.Get("/api/homes");
+            // fix it
+            //
+            //if(response.IsSuccessStatusCode)
+            //{
+            //    var responseContent = await response.Content.ReadAsStringAsync();
+            //    var content = JsonSerializer.Deserialize<HousesResponse>(responseContent, _serializerOptions);
+            //    //Console.WriteLine($"Response => {content.Apartments.Count}");
+            //    return content;
+            //} 
             var responseContent = await response.Content.ReadAsStringAsync();
             var content = JsonSerializer.Deserialize<HousesResponse>(responseContent, _serializerOptions);
             //Console.WriteLine($"Response => {content.Apartments.Count}");
             return content;
         }
-		catch (HttpRequestException ex)
+        catch (HttpRequestException ex)
 		{
             Console.WriteLine($"ERROR (getApartments):{ex.Message}");
             throw;
@@ -61,7 +70,7 @@ public partial class HomesPage : ContentPage
         //DisplayAlert("Selezione", $"Hai selezionato {selectedApartment.Title}", "OK");
 
         // Deseleziona l'elemento
-        //((ListView)sender).SelectedItem = null;
+        ((ListView)sender).SelectedItem = null;
         var parameters = new Dictionary<string, object>();
         parameters.Add("Apartment", selectedApartment);
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}", true, parameters);

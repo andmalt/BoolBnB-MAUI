@@ -5,7 +5,16 @@ namespace BoolBnB_MAUI.Pages
 {
     public partial class MainPage : ContentPage
     {
-        private bool IsAuth {  get; set; }
+        private bool isAuth;
+        public bool IsAuth {
+            get => isAuth;
+            set
+            {
+                isAuth = value;
+                OnPropertyChanged(nameof(IsAuth));
+                EnableBinding();
+            }
+        }
         private readonly AuthService _authService;
         public MainPage()
         {
@@ -13,12 +22,15 @@ namespace BoolBnB_MAUI.Pages
             _authService = new AuthService();
         }
 
-        protected async override void OnAppearing()
+        private void EnableBinding()
+        {
+            BindingContext = this;
+        }
+
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            optionsStackNoAuth.IsVisible = false;
-            optionsStackAuth.IsVisible = false;
+            Console.WriteLine("Appearing");
 
             if (await _authService.IsAuthenticatedAsync())
             {
@@ -30,43 +42,24 @@ namespace BoolBnB_MAUI.Pages
             }
         }
 
-        private void ToggleOptions(object sender, EventArgs e)
+        protected override async void OnNavigatingFrom(NavigatingFromEventArgs args)
         {
-            if (IsAuth)
+            base.OnNavigatingFrom(args);
+            Console.WriteLine("Navigated");
+
+            if (await _authService.IsAuthenticatedAsync())
             {
-                // Show or hide the drop-down menu when the button is pressed
-                optionsStackAuth.IsVisible = !optionsStackAuth.IsVisible;          
+                IsAuth = true;
             }
             else
             {
-                // Show or hide the drop-down menu when the button is pressed
-                optionsStackNoAuth.IsVisible = !optionsStackNoAuth.IsVisible;
-            }           
+                IsAuth = false;
+            }
         }
 
-        private void GoToDashboard(object sender, EventArgs e)
+        private async void GoToHomesPages(object sender, EventArgs e)
         {
-            // Action to go to dashboard
-            Shell.Current.GoToAsync($"//{nameof(InfoPage)}");
-        }
-
-        private async void Logout(object sender, EventArgs e)
-        {
-            var token = await _authService.GetToken();
-            await _authService.Logout(token);
-            // Action to go to logout
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        }
-        
-        private void Login(object sender, EventArgs e)
-        {
-            // Action to go to login
-            Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-        }
-
-        private void GoToHomesPages(object sender, EventArgs e)
-        {
-            Shell.Current.GoToAsync($"//{nameof(HomesPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomesPage)}");
         }
     }
 }

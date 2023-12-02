@@ -1,4 +1,5 @@
-﻿using BoolBnB_MAUI.Services;
+﻿using BoolBnB_MAUI.Pages;
+using BoolBnB_MAUI.Services;
 using Microsoft.Extensions.Logging;
 
 namespace BoolBnB_MAUI
@@ -20,6 +21,7 @@ namespace BoolBnB_MAUI
 		builder.Logging.AddDebug();
 #endif
             builder.Services.AddScoped<AuthService>();
+            builder.Services.AddTransient<MainPage>();
 
             return builder.Build();
         }

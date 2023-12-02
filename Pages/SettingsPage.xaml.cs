@@ -37,4 +37,9 @@ public partial class SettingsPage : ContentPage
 			//
 		}
 	}
+
+	private async void GoToMain(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+	}
 }
