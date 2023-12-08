@@ -48,21 +48,15 @@ namespace BoolBnB_MAUI.Services
 
         public async Task<bool> Login(string email, string password)
         {
-            var loginData = new { email , password };
+            var loginData = new LoginRequest { email = email, password = password };
             //Console.WriteLine("ContenT=> {0}",loginData);
             try
             {
-                using HttpResponseMessage response = await _httpService.Post("/api/login", loginData);
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var data = JsonSerializer.Deserialize<LoginResponse>(responseContent, _serializerOptions);
-
-                    if (data.Success == true)
-                    {
-                        await SecureStorage.SetAsync(AuthKey, data.Token);
+                var response = await _httpService.Post<LoginResponse,LoginRequest>("/api/login", loginData);
+                if (response.Success)
+                { 
+                        await SecureStorage.SetAsync(AuthKey, response.Token);
                         return true;
-                    }
                 }
                 return false;
             }
@@ -77,17 +71,11 @@ namespace BoolBnB_MAUI.Services
         {
             try
             {
-                using HttpResponseMessage response = await _httpService.Delete("/api/logout",token);
-                if (response.IsSuccessStatusCode)
+                var response = await _httpService.Delete<LogoutResponse>("/api/logout", token);
+                if (response.Success)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var data = JsonSerializer.Deserialize<LogoutResponse>(responseContent, _serializerOptions);
-
-                    if (data.Success == true)
-                    {
-                        SecureStorage.Remove(AuthKey);
-                        return true;
-                    }
+                    SecureStorage.Remove(AuthKey);
+                    return true;
                 }
                 SecureStorage.Remove(AuthKey);
                 return false;
@@ -98,7 +86,7 @@ namespace BoolBnB_MAUI.Services
                 // add a modal to show network error
                 throw;
             }
-            
+
         }
     }
 }

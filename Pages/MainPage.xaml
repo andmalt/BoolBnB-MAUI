@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:BoolBnB_MAUI.Components">
     <VerticalStackLayout>
-        <components:HeaderContent IsAuthenticated="{Binding IsAuth}" />
+        <components:HeaderContent BackArrow="False" IsAuthenticated="{Binding IsAuth}" />
 
         <ContentView>
             <Button Clicked="GoToHomesPages" Text="Vai alle case" />

@@ -7,7 +7,15 @@ public partial class HeaderContent : ContentView
 {
     public static readonly BindableProperty IsAuthenticatedProperty =
             BindableProperty.Create(nameof(IsAuthenticated), typeof(bool), typeof(HeaderContent));
+    public static readonly BindableProperty BackArrowProperty =
+            BindableProperty.Create(nameof(BackArrow), typeof(bool), typeof(HeaderContent));
 
+    public bool BackArrow
+    {
+        get => (bool)GetValue(BackArrowProperty);
+        set => SetValue(BackArrowProperty, value);
+        
+    }
     public bool IsAuthenticated
     {
         get => (bool)GetValue(IsAuthenticatedProperty);
@@ -19,6 +27,7 @@ public partial class HeaderContent : ContentView
 	{
 		InitializeComponent();
         _authService = new AuthService();
+        btnBack.IsVisible = BackArrow;
     }
 
     private void ToggleOptions(object sender, EventArgs e)
@@ -42,6 +51,11 @@ public partial class HeaderContent : ContentView
         optionsStackAuth.IsVisible = false;
         optionsStackNoAuth.IsVisible = false;
     }
+
+    //protected void GoBack(ShellNavigatingEventArgs args)
+    //{
+    //    args.
+    //}
 
     private void GoToDashboard(object sender, EventArgs e)
     {

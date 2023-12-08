@@ -2,50 +2,51 @@
 <ContentPage
     x:Class="BoolBnB_MAUI.Pages.HomesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Grid>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:BoolBnB_MAUI.Components">
+    <StackLayout Padding="5">
+        <ActivityIndicator
+            x:Name="loadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand" />
+
         <!--  Header  -->
-        <Grid Grid.Row="1">
-
-            <!--  Add header menu here  -->
-
-        </Grid>
+        <AbsoluteLayout
+            x:Name="menuIcon"
+            HorizontalOptions="End"
+            IsVisible="False"
+            ZIndex="10">
+            <components:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
+        </AbsoluteLayout>
         <!--  Homes list  -->
-        <StackLayout Grid.Row="2" Padding="5">
-            <ActivityIndicator
-                x:Name="loadingIndicator"
-                HorizontalOptions="CenterAndExpand"
-                IsRunning="False"
-                IsVisible="False"
-                VerticalOptions="CenterAndExpand" />
-
-            <ListView
-                x:Name="housesList"
-                HasUnevenRows="True"
-                ItemSelected="OnItemSelected"
-                VerticalOptions="FillAndExpand">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="15">
-                                <Label
-                                    HorizontalTextAlignment="Center"
-                                    Text="{Binding Title}"
-                                    VerticalTextAlignment="Center" />
-                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Rooms, StringFormat='Stanze: {0}'}" />
-                                            <Span Text=", " />
-                                            <Span Text="{Binding Beds, StringFormat='Letti: {0}'}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </Grid>
+        <ListView
+            x:Name="housesList"
+            HasUnevenRows="True"
+            ItemSelected="OnItemSelected"
+            VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="15">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Title}"
+                                VerticalTextAlignment="Center" />
+                            <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Rooms, StringFormat='Stanze: {0}'}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding Beds, StringFormat='Letti: {0}'}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

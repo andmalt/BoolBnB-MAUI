@@ -8,24 +8,47 @@ namespace BoolBnB_MAUI.Services
     public class HttpService : IHttpService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://a67d-95-245-61-231.ngrok-free.app";
+        private readonly JsonSerializerOptions _serializerOptions;
+        private const string BaseUrl = "https://d104-79-36-222-211.ngrok-free.app{0}";
         public HttpService() {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(
                    new MediaTypeWithQualityHeaderValue("application/json")
                );
-        }
-        public async Task<HttpResponseMessage> Get(string url, string token = null)
-        {
-            if (token != null)
+            _serializerOptions = new JsonSerializerOptions
             {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            var uri = new Uri(string.Format(BaseUrl + url));
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
+        }
+        public async Task<TResponse> Get<TResponse>(string url)
+        {
+            var uri = new Uri(string.Format(BaseUrl , url));
             try
             {
-                return await _httpClient.GetAsync(uri);
+                var response = await _httpClient.GetAsync(uri);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return data;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("ERROR GET REQUEST: {0}",ex.Message);
+                throw;
+            }
+        }
+        public async Task<TResponse> Get<TResponse>(string url, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var uri = new Uri(string.Format(BaseUrl , url));
+            try
+            {
+                var response = await _httpClient.GetAsync(uri);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return data;
             }
             catch (HttpRequestException ex)
             {
@@ -34,51 +57,106 @@ namespace BoolBnB_MAUI.Services
             }
         }
 
-        public async Task<HttpResponseMessage> Patch(string url, object data, string token)
+        public async Task<TResponse> Post<TResponse, TRequest>(string url, TRequest data, string token)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var uri = new Uri(string.Format(BaseUrl + url));
+            var uri = new Uri(string.Format(BaseUrl, url));
             try
             {
                 var json = JsonSerializer.Serialize(data);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                return await _httpClient.PatchAsync(uri, content);
+                var response = await _httpClient.PostAsync(uri, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
             }
             catch (HttpRequestException ex)
-            {
-                Console.WriteLine("ERROR PATCH REQUEST: {0}", ex.Message);
-                throw;
-            }
-}
-
-        public async Task<HttpResponseMessage> Post(string url, object data = null, string token = null)
-        {
-            if (token != null)
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            var uri = new Uri(string.Format(BaseUrl + url));
-            try
-            {
-                if (data != null)
-                {
-                    var json = JsonSerializer.Serialize(data);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    return await _httpClient.PostAsync(uri, content);
-                }
-                else
-                {
-                    return await _httpClient.PostAsync(uri, null);
-                }
-                
-            }
-            catch(HttpRequestException ex)
             {
                 Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
                 throw;
             }
 
-            
+
+        }
+        public async Task<TResponse> Post<TResponse, TRequest>(string url, TRequest data)
+        {
+            var uri = new Uri(string.Format(BaseUrl, url));
+            try
+            {
+                var json = JsonSerializer.Serialize(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync(uri, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
+                throw;
+            }
+
+
+        }
+
+        public async Task<TResponse> Post<TResponse>(string url, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var uri = new Uri(string.Format(BaseUrl, url));
+            try
+            {
+                var response = await _httpClient.PostAsync(uri,null);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
+                throw;
+            }
+
+
+        } 
+        public async Task<TResponse> Post<TResponse>(string url)
+        {
+            var uri = new Uri(string.Format(BaseUrl, url));
+            try
+            {
+                var response = await _httpClient.PostAsync(uri,null);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
+                throw;
+            }
+
+
+        }
+
+        public async Task<TResponse> Patch<TResponse, TRequest>(string url, TRequest data, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var uri = new Uri(string.Format(BaseUrl, url));
+            try
+            {
+                var json = JsonSerializer.Serialize(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PatchAsync(uri, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
+                throw;
+            }
+
+
         }
 
         public async Task<HttpResponseMessage> PostFormData(string url, Dictionary<string, string> formData, string token)
@@ -100,38 +178,46 @@ namespace BoolBnB_MAUI.Services
             }
         }
 
-        public async Task<HttpResponseMessage> Put(string url, object data, string token)
+        public async Task<TResponse> Put<TResponse, TRequest>(string url, TRequest data, string token)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var uri = new Uri(string.Format(BaseUrl + url));
+            var uri = new Uri(string.Format(BaseUrl, url));
             try
             {
                 var json = JsonSerializer.Serialize(data);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                return await _httpClient.PutAsync(uri, content);
+                var response = await _httpClient.PutAsync(uri, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
             }
-            catch(HttpRequestException ex)
+            catch (HttpRequestException ex)
             {
-                Console.WriteLine("ERROR PUT REQUEST: {0}", ex.Message);
+                Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
                 throw;
             }
-            
+
+
         }
 
-        public async Task<HttpResponseMessage> Delete(string url,string token)
+        public async Task<TResponse> Delete<TResponse>(string url, string token)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var uri = new Uri(string.Format(BaseUrl + url));
+            var uri = new Uri(string.Format(BaseUrl, url));
             try
             {
-                return await _httpClient.DeleteAsync(uri);
+                var response = await _httpClient.DeleteAsync(uri);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var JsonResponse = JsonSerializer.Deserialize<TResponse>(responseContent, _serializerOptions);
+                return JsonResponse;
             }
-            catch(HttpRequestException ex)
+            catch (HttpRequestException ex)
             {
-                Console.WriteLine("ERROR DELETE REQUEST: {0}", ex.Message);
+                Console.WriteLine("ERROR POST REQUEST: {0}", ex.Message);
                 throw;
             }
-            
+
+
         }
     }
 }

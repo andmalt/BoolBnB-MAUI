@@ -9,48 +9,69 @@ namespace BoolBnB_MAUI.Pages;
 public partial class HomesPage : ContentPage
 {
 	private readonly IHttpService _httpService;
-    private readonly JsonSerializerOptions _serializerOptions;
+	private readonly AuthService _authService;
+    private bool isAuth;
+    public bool IsAuth
+    {
+        get => isAuth;
+        set
+        {
+            isAuth = value;
+            OnPropertyChanged(nameof(IsAuth));
+            EnableBinding();
+        }
+    }
     public HomesPage()
 	{
 		InitializeComponent();
 		_httpService = new HttpService();
-        _serializerOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
-        };
+        _authService = new AuthService();
     }
 
-	protected async override void OnAppearing()
+    private void EnableBinding()
+    {
+        BindingContext = this;
+    }
+
+    protected async override void OnAppearing()
 	{
 		base.OnAppearing();
+
+        if (await _authService.IsAuthenticatedAsync())
+        {
+            IsAuth = true;
+        }
+        else
+        {
+            IsAuth = false;
+        }
+
         loadingIndicator.IsRunning = true;
         loadingIndicator.IsVisible = true;
         var response = await GetApartmentsAsync();
-        var apartments = response.Apartments.ToList();
-        housesList.ItemsSource = apartments;
+        if (response.Success)
+        {
+            var apartments = response.Apartments.ToList();
+            housesList.ItemsSource = apartments;
+        }        
         loadingIndicator.IsRunning = false;
         loadingIndicator.IsVisible = false;
+        menuIcon.IsVisible = true;
     }
 
 	protected async Task<HousesResponse> GetApartmentsAsync()
 	{
 		try
 		{
-            HttpResponseMessage response = await _httpService.Get("/api/homes");
-            // fix it
-            //
-            //if(response.IsSuccessStatusCode)
-            //{
-            //    var responseContent = await response.Content.ReadAsStringAsync();
-            //    var content = JsonSerializer.Deserialize<HousesResponse>(responseContent, _serializerOptions);
-            //    //Console.WriteLine($"Response => {content.Apartments.Count}");
-            //    return content;
-            //} 
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var content = JsonSerializer.Deserialize<HousesResponse>(responseContent, _serializerOptions);
-            //Console.WriteLine($"Response => {content.Apartments.Count}");
-            return content;
+            var response = await _httpService.Get<HousesResponse>("/api/homes");
+            if (response.Success)
+            {
+                return response;
+            }
+            else
+            {
+                return new HousesResponse { Success = false, Apartments = { }, Photos = { } };
+            }
         }
         catch (HttpRequestException ex)
 		{

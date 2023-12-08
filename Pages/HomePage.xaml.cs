@@ -10,7 +10,6 @@ namespace BoolBnB_MAUI.Pages;
 public partial class HomePage : ContentPage
 {
     private readonly IHttpService _httpService;
-    private readonly JsonSerializerOptions _serializerOptions;
     private Apartment apartment {  get; set; }
     public Apartment Apartment
     { 
@@ -25,11 +24,6 @@ public partial class HomePage : ContentPage
 	{
 		InitializeComponent();
         _httpService = new HttpService();
-        _serializerOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
-        };
     }
 
     protected void AddHouse(Apartment apartment)
@@ -51,14 +45,11 @@ public partial class HomePage : ContentPage
         Console.WriteLine($"Apartment ID: {apartment.Id}");
         try
         {
-            HttpResponseMessage response = await _httpService.Post($"/api/house/{apartment.Id}");
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var content = JsonSerializer.Deserialize<HouseResponse>(responseContent, _serializerOptions);
-            //Console.WriteLine($"Response => {content.Apartments.Count}");
-            if (content.Success)
+            var response = await _httpService.Post<HouseResponse>($"/api/house/{apartment.Id}");
+            if (response.Success)
             {
-                BindingContext = content.Apartment;
-                apartment = content.Apartment;
+                BindingContext = response.Apartment;
+                apartment = response.Apartment;
             }
         }
         catch (HttpRequestException ex)

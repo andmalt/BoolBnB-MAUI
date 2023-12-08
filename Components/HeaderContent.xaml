@@ -21,52 +21,68 @@
             </Setter>
         </Style>
     </ContentView.Resources>
-
-    <VerticalStackLayout
-        Padding="5"
-        BindingContext="{x:Reference this}"
-        HorizontalOptions="FillAndExpand">
-        <ContentView HorizontalOptions="End">
+    <Grid Padding="7">
+        <VerticalStackLayout
+            Grid.Column="1"
+            HorizontalOptions="Start"
+            VerticalOptions="Center">
             <ImageButton
-                x:Name="btnToggle"
-                Clicked="ToggleOptions"
-                HeightRequest="50"
-                Source="menuicon.svg"
+                x:Name="btnBack"
+                HeightRequest="30"
+                Source="back_arrow.png"
                 Style="{StaticResource MyButtonStyle}"
-                WidthRequest="70" />
-        </ContentView>
-        <ContentView
-            x:Name="optionsStackNoAuth"
+                WidthRequest="30" />
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Grid.Column="2"
+            Padding="5"
+            BindingContext="{x:Reference this}"
             HorizontalOptions="End"
-            IsVisible="false">
-            <StackLayout Margin="1" Padding="1">
-                <Button
-                    BackgroundColor="Grey"
-                    Clicked="Login"
-                    CornerRadius="0"
-                    Text="Login"
-                    WidthRequest="200" />
-            </StackLayout>
-        </ContentView>
+            VerticalOptions="Center">
+            <ContentView HorizontalOptions="End">
+                <ImageButton
+                    x:Name="btnToggle"
+                    Clicked="ToggleOptions"
+                    HeightRequest="50"
+                    Source="menuicon.svg"
+                    Style="{StaticResource MyButtonStyle}"
+                    WidthRequest="70" />
+            </ContentView>
+            <ContentView
+                x:Name="optionsStackNoAuth"
+                HorizontalOptions="End"
+                IsVisible="false">
+                <StackLayout Margin="1" Padding="1">
+                    <Button
+                        BackgroundColor="Grey"
+                        Clicked="Login"
+                        CornerRadius="0"
+                        Text="Login"
+                        WidthRequest="200" />
+                </StackLayout>
+            </ContentView>
 
-        <ContentView
-            x:Name="optionsStackAuth"
-            HorizontalOptions="End"
-            IsVisible="false">
-            <StackLayout Margin="1" Padding="1">
-                <Button
-                    BackgroundColor="Grey"
-                    Clicked="GoToDashboard"
-                    CornerRadius="0"
-                    Text="Dashboard"
-                    WidthRequest="200" />
-                <Button
-                    BackgroundColor="Grey"
-                    Clicked="Logout"
-                    CornerRadius="0"
-                    Text="Logout"
-                    WidthRequest="200" />
-            </StackLayout>
-        </ContentView>
-    </VerticalStackLayout>
+            <ContentView
+                x:Name="optionsStackAuth"
+                HorizontalOptions="End"
+                IsVisible="false">
+                <StackLayout Margin="1" Padding="1">
+                    <Button
+                        BackgroundColor="Grey"
+                        Clicked="GoToDashboard"
+                        CornerRadius="0"
+                        Text="Dashboard"
+                        WidthRequest="200" />
+                    <Button
+                        BackgroundColor="Grey"
+                        Clicked="Logout"
+                        CornerRadius="0"
+                        Text="Logout"
+                        WidthRequest="200" />
+                </StackLayout>
+            </ContentView>
+        </VerticalStackLayout>
+    </Grid>
+
+
 </ContentView>
