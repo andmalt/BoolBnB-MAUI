@@ -4,11 +4,19 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:BoolBnB_MAUI.Components">
-    <VerticalStackLayout>
-        <components:HeaderContent BackArrow="False" IsAuthenticated="{Binding IsAuth}" />
+    <AbsoluteLayout Padding="5">
+        <components:HeaderContent
+            AbsoluteLayout.LayoutBounds="1,0"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackArrow="False"
+            IsAuthenticated="{Binding IsAuth}"
+            ZIndex="10" />
 
-        <ContentView>
-            <Button Clicked="GoToHomesPages" Text="Vai alle case" />
-        </ContentView>
-    </VerticalStackLayout>
+        <Button
+            AbsoluteLayout.LayoutBounds="0.5,0.7,170,50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Clicked="GoToHomesPages"
+            Text="Vai alle case" />
+
+    </AbsoluteLayout>
 </ContentPage>

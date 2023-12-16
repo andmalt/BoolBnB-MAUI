@@ -1,23 +1,16 @@
 ﻿using BoolBnB_MAUI.Data.Auth;
 using BoolBnB_MAUI.Services.Interface;
-using System.Text.Json;
 
 namespace BoolBnB_MAUI.Services
 {
     public class AuthService
     {
         private readonly IHttpService _httpService;
-        private readonly JsonSerializerOptions _serializerOptions;
         private const string AuthKey = "AuthKey";
 
         public AuthService()
         {
             _httpService = new HttpService();
-            _serializerOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            };
         }
 
         public async Task<bool> IsAuthenticatedAsync()

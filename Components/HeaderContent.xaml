@@ -2,8 +2,7 @@
 <ContentView
     x:Class="BoolBnB_MAUI.Components.HeaderContent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Name="this">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentView.Resources>
         <Style x:Key="MyButtonStyle" TargetType="ImageButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -21,25 +20,20 @@
             </Setter>
         </Style>
     </ContentView.Resources>
-    <Grid Padding="7">
-        <VerticalStackLayout
-            Grid.Column="1"
-            HorizontalOptions="Start"
-            VerticalOptions="Center">
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0" AbsoluteLayout.LayoutFlags="PositionProportional">
             <ImageButton
                 x:Name="btnBack"
+                AbsoluteLayout.LayoutBounds="0,0"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
                 HeightRequest="30"
+                IsVisible="true"
                 Source="back_arrow.png"
                 Style="{StaticResource MyButtonStyle}"
                 WidthRequest="30" />
-        </VerticalStackLayout>
-        <VerticalStackLayout
-            Grid.Column="2"
-            Padding="5"
-            BindingContext="{x:Reference this}"
-            HorizontalOptions="End"
-            VerticalOptions="Center">
-            <ContentView HorizontalOptions="End">
+        </StackLayout>
+        <AbsoluteLayout>
+            <ContentView AbsoluteLayout.LayoutBounds="1,0" AbsoluteLayout.LayoutFlags="PositionProportional">
                 <ImageButton
                     x:Name="btnToggle"
                     Clicked="ToggleOptions"
@@ -50,7 +44,8 @@
             </ContentView>
             <ContentView
                 x:Name="optionsStackNoAuth"
-                HorizontalOptions="End"
+                AbsoluteLayout.LayoutBounds="1,7"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
                 IsVisible="false">
                 <StackLayout Margin="1" Padding="1">
                     <Button
@@ -64,7 +59,8 @@
 
             <ContentView
                 x:Name="optionsStackAuth"
-                HorizontalOptions="End"
+                AbsoluteLayout.LayoutBounds="1,7"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
                 IsVisible="false">
                 <StackLayout Margin="1" Padding="1">
                     <Button
@@ -81,8 +77,6 @@
                         WidthRequest="200" />
                 </StackLayout>
             </ContentView>
-        </VerticalStackLayout>
-    </Grid>
-
-
+        </AbsoluteLayout>
+    </AbsoluteLayout>
 </ContentView>

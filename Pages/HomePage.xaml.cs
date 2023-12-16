@@ -2,7 +2,6 @@ using BoolBnB_MAUI.Data.Entites;
 using BoolBnB_MAUI.Data.Guest;
 using BoolBnB_MAUI.Services;
 using BoolBnB_MAUI.Services.Interface;
-using System.Text.Json;
 
 namespace BoolBnB_MAUI.Pages;
 

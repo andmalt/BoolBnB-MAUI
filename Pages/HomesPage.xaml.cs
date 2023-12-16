@@ -2,7 +2,6 @@ using BoolBnB_MAUI.Data.Entites;
 using BoolBnB_MAUI.Data.Guest;
 using BoolBnB_MAUI.Services;
 using BoolBnB_MAUI.Services.Interface;
-using System.Text.Json;
 
 namespace BoolBnB_MAUI.Pages;
 
@@ -46,13 +45,15 @@ public partial class HomesPage : ContentPage
             IsAuth = false;
         }
 
+        menuIcon.IsVisible = false;
+        housesList.IsVisible = false;
         loadingIndicator.IsRunning = true;
         loadingIndicator.IsVisible = true;
         var response = await GetApartmentsAsync();
         if (response.Success)
         {
-            var apartments = response.Apartments.ToList();
-            housesList.ItemsSource = apartments;
+            housesList.ItemsSource = response.Apartments.Data.ToList();
+            housesList.IsVisible = true;
         }        
         loadingIndicator.IsRunning = false;
         loadingIndicator.IsVisible = false;
@@ -63,18 +64,19 @@ public partial class HomesPage : ContentPage
 	{
 		try
 		{
-            var response = await _httpService.Get<HousesResponse>("/api/homes");
+            var response = await _httpService.Get<HousesResponse>("/api/homes-mobile");
             if (response.Success)
             {
                 return response;
             }
             else
             {
-                return new HousesResponse { Success = false, Apartments = { }, Photos = { } };
+                return new HousesResponse { Success = false, Apartments = { } };
             }
         }
         catch (HttpRequestException ex)
 		{
+            await DisplayAlert("Errore", "Imposibile ottenere dati, connessione internet mancante.", "Ok");
             Console.WriteLine($"ERROR (getApartments):{ex.Message}");
             throw;
         }

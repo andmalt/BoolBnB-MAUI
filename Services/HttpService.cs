@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace BoolBnB_MAUI.Services
 {
@@ -9,7 +10,7 @@ namespace BoolBnB_MAUI.Services
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _serializerOptions;
-        private const string BaseUrl = "https://d104-79-36-222-211.ngrok-free.app{0}";
+        private const string BaseUrl = "https://1f4f-79-36-222-211.ngrok-free.app{0}";
         public HttpService() {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
@@ -161,7 +162,10 @@ namespace BoolBnB_MAUI.Services
 
         public async Task<HttpResponseMessage> PostFormData(string url, Dictionary<string, string> formData, string token)
         {
-            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            // check header when make an api call.
+            var mdq = new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded");
+            if (_httpClient.DefaultRequestHeaders.Accept.Contains(mdq))
+                _httpClient.DefaultRequestHeaders.Accept.Remove(mdq);
             _httpClient.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded")
                 );

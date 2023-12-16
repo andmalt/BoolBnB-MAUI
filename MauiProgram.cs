@@ -20,7 +20,7 @@ namespace BoolBnB_MAUI
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddScoped<AuthService>();
+            builder.Services.AddSingleton<AuthService>();
 
             return builder.Build();
         }

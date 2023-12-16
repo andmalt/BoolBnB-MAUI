@@ -15,16 +15,18 @@
         <!--  Header  -->
         <AbsoluteLayout
             x:Name="menuIcon"
-            HorizontalOptions="End"
             IsVisible="False"
             ZIndex="10">
-            <components:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
+            <components:HeaderContent
+                AbsoluteLayout.LayoutBounds="1,0"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackArrow="True"
+                IsAuthenticated="{Binding IsAuth}" />
         </AbsoluteLayout>
         <!--  Homes list  -->
         <ListView
             x:Name="housesList"
             HasUnevenRows="True"
-            ItemSelected="OnItemSelected"
             VerticalOptions="FillAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
