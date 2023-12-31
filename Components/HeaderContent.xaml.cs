@@ -1,12 +1,12 @@
 using BoolBnB_MAUI.Pages;
-using BoolBnB_MAUI.Services;
 
 namespace BoolBnB_MAUI.Components;
 
 public partial class HeaderContent : ContentView
 {
     public static readonly BindableProperty IsAuthenticatedProperty =
-            BindableProperty.Create(nameof(IsAuthenticated), typeof(bool), typeof(HeaderContent));
+            BindableProperty.Create(nameof(IsAuthenticated), typeof(bool), typeof(HeaderContent), default(bool),
+                propertyChanged: OnIsAuthenticatedChanged);
     public static readonly BindableProperty BackArrowProperty =
             BindableProperty.Create(nameof(BackArrow), typeof(bool), typeof(HeaderContent));
 
@@ -20,63 +20,92 @@ public partial class HeaderContent : ContentView
     {
         get => (bool)GetValue(IsAuthenticatedProperty);
         set => SetValue(IsAuthenticatedProperty, value);
-        
     }
-    private readonly AuthService _authService;
+
     public HeaderContent()
 	{
 		InitializeComponent();
-        _authService = new AuthService();
+        EnableChangedProperty();
         btnBack.IsVisible = BackArrow;
     }
 
-    private void ToggleOptions(object sender, EventArgs e)
+    private static void OnIsAuthenticatedChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (HeaderContent)bindable;
+        control.EnableChangedProperty();
+    }
+
+    private void EnableChangedProperty()
     {
         if (IsAuthenticated)
         {
-            optionsStackNoAuth.IsVisible = false;
-            // Show or hide the drop-down menu when the button is pressed
-            optionsStackAuth.IsVisible = !optionsStackAuth.IsVisible;
+            btnAuth.IsVisible = true;
+            btnNoAuth.IsVisible = false;
         }
         else
         {
-            optionsStackAuth.IsVisible = false;
-            // Show or hide the drop-down menu when the button is pressed
-            optionsStackNoAuth.IsVisible = !optionsStackNoAuth.IsVisible;
+            btnAuth.IsVisible = false;
+            btnNoAuth.IsVisible = true;
         }
     }
 
-    private void CleanAll()
+    private void GoBackToMain(object sender, EventArgs e)
     {
-        optionsStackAuth.IsVisible = false;
-        optionsStackNoAuth.IsVisible = false;
+        Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
-
-    //protected void GoBack(ShellNavigatingEventArgs args)
-    //{
-    //    args.
-    //}
 
     private void GoToDashboard(object sender, EventArgs e)
     {
+        
         // Action to go to dashboard
         Shell.Current.GoToAsync($"//{nameof(InfoPage)}");
-        CleanAll();
-    }
-
-    private async void Logout(object sender, EventArgs e)
-    {
-        var token = await _authService.GetToken();
-        await _authService.Logout(token);
-        // Action to go to logout
-        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        CleanAll();
     }
 
     private void Login(object sender, EventArgs e)
     {
         // Action to go to login
         Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-        CleanAll();
+    }
+
+    private void PressedDashboard(object sender, EventArgs e)
+    {
+        if(Application.Current.Resources.TryGetValue("LightLink", out var pressedColor))
+        {
+            labelDashboard.TextColor = (Color)pressedColor;
+        }
+        imageDashboard.HeightRequest = 18.0;
+        imageDashboard.WidthRequest = 18.0;
+    }
+
+    private void ReleasedDashboard(object sender, EventArgs e)
+    {
+        if (Application.Current.Resources.TryGetValue("Link", out var defaultColor))
+        {
+            labelDashboard.TextColor = (Color)defaultColor;
+        }
+        imageDashboard.HeightRequest = 24.0;
+        imageDashboard.WidthRequest = 24.0;
+        GoToDashboard(sender, e);
+    }
+
+    private void PressedLogin(object sender, EventArgs e)
+    {
+        if (Application.Current.Resources.TryGetValue("LightLink", out var pressedColor))
+        {
+            labelLogin.TextColor = (Color)pressedColor;
+        }
+        imageLogin.HeightRequest = 18.0;
+        imageLogin.WidthRequest = 18.0;
+    }
+
+    private void ReleasedLogin(object sender, EventArgs e)
+    {
+        if (Application.Current.Resources.TryGetValue("Link", out var defaultColor))
+        {
+            labelLogin.TextColor = (Color)defaultColor;
+        }
+        imageLogin.HeightRequest = 24.0;
+        imageLogin.WidthRequest = 24.0;
+        GoToDashboard(sender, e);
     }
 }

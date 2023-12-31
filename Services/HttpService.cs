@@ -2,7 +2,6 @@
 using System.Text;
 using System.Text.Json;
 using System.Net.Http.Headers;
-using System.Linq;
 
 namespace BoolBnB_MAUI.Services
 {
@@ -10,7 +9,7 @@ namespace BoolBnB_MAUI.Services
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _serializerOptions;
-        private const string BaseUrl = "https://1f4f-79-36-222-211.ngrok-free.app{0}";
+        private const string BaseUrl = "https://bfb6-87-20-220-24.ngrok-free.app{0}";
         public HttpService() {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();

@@ -71,4 +71,11 @@
             ContentTemplate="{DataTemplate pages:SettingsPage}"
             Route="SettingsPage" />
     </FlyoutItem>
+    <Shell.FlyoutFooter>
+        <Button
+            BackgroundColor="White"
+            Clicked="Logout"
+            Text="Esci"
+            TextColor="Red" />
+    </Shell.FlyoutFooter>
 </Shell>

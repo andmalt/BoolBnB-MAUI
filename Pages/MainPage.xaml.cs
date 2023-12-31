@@ -1,5 +1,4 @@
-﻿
-using BoolBnB_MAUI.Services;
+﻿using BoolBnB_MAUI.Services;
 
 namespace BoolBnB_MAUI.Pages
 {

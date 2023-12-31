@@ -6,6 +6,5 @@
     <VerticalStackLayout Padding="5">
 
         <Button Clicked="GoToMain" Text="Main page" />
-        <Button Clicked="Logout" Text="Logout" />
     </VerticalStackLayout>
 </ContentPage>

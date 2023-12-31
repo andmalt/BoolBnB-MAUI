@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
     x:Class="BoolBnB_MAUI.Components.HeaderContent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!--  not used now the resources  -->
     <ContentView.Resources>
         <Style x:Key="MyButtonStyle" TargetType="ImageButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -20,63 +20,102 @@
             </Setter>
         </Style>
     </ContentView.Resources>
-    <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0" AbsoluteLayout.LayoutFlags="PositionProportional">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ContentView
+            Grid.Row="0"
+            Grid.Column="0"
+            Padding="10"
+            HorizontalOptions="Start"
+            VerticalOptions="Center">
             <ImageButton
                 x:Name="btnBack"
-                AbsoluteLayout.LayoutBounds="0,0"
-                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Clicked="GoBackToMain"
                 HeightRequest="30"
-                IsVisible="true"
                 Source="back_arrow.png"
                 Style="{StaticResource MyButtonStyle}"
                 WidthRequest="30" />
-        </StackLayout>
-        <AbsoluteLayout>
-            <ContentView AbsoluteLayout.LayoutBounds="1,0" AbsoluteLayout.LayoutFlags="PositionProportional">
+        </ContentView>
+        <ContentView
+            x:Name="btnNoAuth"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            Style="{StaticResource MyButtonStyle}"
+            VerticalOptions="Center">
+            <!--  This is a personal button  -->
+            <Grid Padding="10" BackgroundColor="Transparent">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Login" />
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="labelLogin"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    Text="Accedi"
+                    TextColor="{StaticResource Link}"
+                    VerticalOptions="Center" />
                 <ImageButton
-                    x:Name="btnToggle"
-                    Clicked="ToggleOptions"
-                    HeightRequest="50"
-                    Source="menuicon.svg"
-                    Style="{StaticResource MyButtonStyle}"
-                    WidthRequest="70" />
-            </ContentView>
-            <ContentView
-                x:Name="optionsStackNoAuth"
-                AbsoluteLayout.LayoutBounds="1,7"
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                IsVisible="false">
-                <StackLayout Margin="1" Padding="1">
-                    <Button
-                        BackgroundColor="Grey"
-                        Clicked="Login"
-                        CornerRadius="0"
-                        Text="Login"
-                        WidthRequest="200" />
-                </StackLayout>
-            </ContentView>
-
-            <ContentView
-                x:Name="optionsStackAuth"
-                AbsoluteLayout.LayoutBounds="1,7"
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                IsVisible="false">
-                <StackLayout Margin="1" Padding="1">
-                    <Button
-                        BackgroundColor="Grey"
-                        Clicked="GoToDashboard"
-                        CornerRadius="0"
-                        Text="Dashboard"
-                        WidthRequest="200" />
-                    <Button
-                        BackgroundColor="Grey"
-                        Clicked="Logout"
-                        CornerRadius="0"
-                        Text="Logout"
-                        WidthRequest="200" />
-                </StackLayout>
-            </ContentView>
-        </AbsoluteLayout>
-    </AbsoluteLayout>
+                    x:Name="imageLogin"
+                    Grid.Column="1"
+                    Margin="5,0,0,0"
+                    Aspect="AspectFit"
+                    HeightRequest="24"
+                    Pressed="PressedLogin"
+                    Released="ReleasedLogin"
+                    Source="menuicon.png"
+                    WidthRequest="24" />
+            </Grid>
+        </ContentView>
+        <ContentView
+            x:Name="btnAuth"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            VerticalOptions="Center">
+            <!--  This is a personal button  -->
+            <Grid Padding="10" BackgroundColor="Transparent">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GoToDashboard" />
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="labelDashboard"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    Text="Dashboard"
+                    TextColor="{StaticResource Link}"
+                    VerticalOptions="Center" />
+                <ImageButton
+                    x:Name="imageDashboard"
+                    Grid.Column="1"
+                    Margin="5,0,0,0"
+                    Aspect="AspectFit"
+                    HeightRequest="24"
+                    Pressed="PressedDashboard"
+                    Released="ReleasedDashboard"
+                    Source="menuicon.png"
+                    WidthRequest="24" />
+            </Grid>
+        </ContentView>
+    </Grid>
 </ContentView>

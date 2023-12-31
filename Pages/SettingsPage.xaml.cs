@@ -24,20 +24,6 @@ public partial class SettingsPage : ContentPage
 		
     }
 
-    private async void Logout(object sender, EventArgs e)
-	{
-		var isLogout = await _authService.Logout(Token); 
-		if (isLogout)
-		{
-			//
-			await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-		}
-		else
-		{
-			//
-		}
-	}
-
 	private async void GoToMain(object sender, EventArgs e)
 	{
 		await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
