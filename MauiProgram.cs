@@ -1,6 +1,7 @@
 ﻿using BoolBnB_MAUI.Pages;
 using BoolBnB_MAUI.Services;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace BoolBnB_MAUI
 {
@@ -11,6 +12,7 @@ namespace BoolBnB_MAUI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

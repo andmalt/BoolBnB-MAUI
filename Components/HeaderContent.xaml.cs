@@ -8,7 +8,8 @@ public partial class HeaderContent : ContentView
             BindableProperty.Create(nameof(IsAuthenticated), typeof(bool), typeof(HeaderContent), default(bool),
                 propertyChanged: OnIsAuthenticatedChanged);
     public static readonly BindableProperty BackArrowProperty =
-            BindableProperty.Create(nameof(BackArrow), typeof(bool), typeof(HeaderContent));
+            BindableProperty.Create(nameof(BackArrow), typeof(bool), typeof(HeaderContent), default(bool), 
+                propertyChanged: OnBackArrowChanged);
 
     public bool BackArrow
     {
@@ -27,6 +28,12 @@ public partial class HeaderContent : ContentView
 		InitializeComponent();
         EnableChangedProperty();
         btnBack.IsVisible = BackArrow;
+    }
+
+    private static void OnBackArrowChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (HeaderContent)bindable;
+        control.btnBack.IsVisible = (bool)newValue;
     }
 
     private static void OnIsAuthenticatedChanged(BindableObject bindable, object oldValue, object newValue)
@@ -73,8 +80,7 @@ public partial class HeaderContent : ContentView
         {
             labelDashboard.TextColor = (Color)pressedColor;
         }
-        imageDashboard.HeightRequest = 18.0;
-        imageDashboard.WidthRequest = 18.0;
+        imageDashboard.Source = "light_link_dashboard.png";
     }
 
     private void ReleasedDashboard(object sender, EventArgs e)
@@ -83,8 +89,7 @@ public partial class HeaderContent : ContentView
         {
             labelDashboard.TextColor = (Color)defaultColor;
         }
-        imageDashboard.HeightRequest = 24.0;
-        imageDashboard.WidthRequest = 24.0;
+        imageDashboard.Source = "link_dashboard.png";
         GoToDashboard(sender, e);
     }
 
@@ -94,8 +99,7 @@ public partial class HeaderContent : ContentView
         {
             labelLogin.TextColor = (Color)pressedColor;
         }
-        imageLogin.HeightRequest = 18.0;
-        imageLogin.WidthRequest = 18.0;
+        imageLogin.Source = "light_link_login.png";
     }
 
     private void ReleasedLogin(object sender, EventArgs e)
@@ -104,8 +108,26 @@ public partial class HeaderContent : ContentView
         {
             labelLogin.TextColor = (Color)defaultColor;
         }
-        imageLogin.HeightRequest = 24.0;
-        imageLogin.WidthRequest = 24.0;
-        GoToDashboard(sender, e);
+        imageLogin.Source = "link_login.png";
+        Login(sender, e);
+    }
+
+    private void PressedArrow(object sender, EventArgs e)
+    {
+        if (Application.Current.Resources.TryGetValue("LightLink", out var pressedColor))
+        {
+            labelArrow.TextColor = (Color)pressedColor;
+        }
+        imageArrow.Source = "light_link_back.png";
+    }
+
+    private void ReleasedArrow(object sender, EventArgs e)
+    {
+        if (Application.Current.Resources.TryGetValue("Link", out var defaultColor))
+        {
+            labelArrow.TextColor = (Color)defaultColor;
+        }
+        imageArrow.Source = "link_back.png";
+        GoBackToMain(sender, e);
     }
 }
