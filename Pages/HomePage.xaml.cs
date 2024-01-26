@@ -9,6 +9,7 @@ namespace BoolBnB_MAUI.Pages;
 public partial class HomePage : ContentPage
 {
     private readonly IHttpService _httpService;
+    private readonly AuthService _authService;
     private Apartment apartment {  get; set; }
     public Apartment Apartment
     { 
@@ -19,10 +20,43 @@ public partial class HomePage : ContentPage
             AddHouse(value);
         }
     }
+
+    private bool isAuth;
+    public bool IsAuth
+    {
+        get => isAuth;
+        set
+        {
+            isAuth = value;
+            OnPropertyChanged(nameof(IsAuth));
+            EnableBinding();
+        }
+    }
     public HomePage()
 	{
 		InitializeComponent();
         _httpService = new HttpService();
+        _authService = new AuthService();
+    }
+
+    private void EnableBinding()
+    {
+        BindingContext = this;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        Console.WriteLine("Appearing");
+
+        if (await _authService.IsAuthenticatedAsync())
+        {
+            IsAuth = true;
+        }
+        else
+        {
+            IsAuth = false;
+        }
     }
 
     protected void AddHouse(Apartment apartment)

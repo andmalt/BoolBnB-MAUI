@@ -28,7 +28,8 @@
         ContentTemplate="{DataTemplate pages:HomePage}"
         Route="HomePage"
         Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False" />
     <ShellContent
         Title="Create House"
         ContentTemplate="{DataTemplate pages:CreateHousePage}"
@@ -72,10 +73,15 @@
             Route="SettingsPage" />
     </FlyoutItem>
     <Shell.FlyoutFooter>
-        <Button
-            BackgroundColor="White"
-            Clicked="Logout"
-            Text="Esci"
-            TextColor="Red" />
+        <StackLayout>
+            <Button
+                Margin="0,0,0,30"
+                BackgroundColor="White"
+                Clicked="Logout"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Esci"
+                TextColor="Red" />
+        </StackLayout>
     </Shell.FlyoutFooter>
 </Shell>

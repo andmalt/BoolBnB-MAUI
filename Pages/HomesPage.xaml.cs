@@ -2,6 +2,8 @@ using BoolBnB_MAUI.Data.Entites;
 using BoolBnB_MAUI.Data.Guest;
 using BoolBnB_MAUI.Services;
 using BoolBnB_MAUI.Services.Interface;
+using CommunityToolkit.Maui.Core.Extensions;
+using System.Collections.ObjectModel;
 
 namespace BoolBnB_MAUI.Pages;
 
@@ -20,6 +22,7 @@ public partial class HomesPage : ContentPage
             EnableBinding();
         }
     }
+
     public HomesPage()
 	{
 		InitializeComponent();
@@ -52,7 +55,7 @@ public partial class HomesPage : ContentPage
         var response = await GetApartmentsAsync();
         if (response.Success)
         {
-            housesList.ItemsSource = response.Apartments.Data.ToList();
+            housesList.ItemsSource = response.Apartments.Data.ToObservableCollection(); ;
             housesList.IsVisible = true;
         }        
         loadingIndicator.IsRunning = false;
@@ -85,7 +88,7 @@ public partial class HomesPage : ContentPage
 
     private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
-        Console.WriteLine($"Selected Object: {e.SelectedItem}");
+        //Console.WriteLine($"Selected Object: {e.SelectedItem}");
         if (e.SelectedItem == null)
             return;
 
@@ -96,6 +99,6 @@ public partial class HomesPage : ContentPage
         ((ListView)sender).SelectedItem = null;
         var parameters = new Dictionary<string, object>();
         parameters.Add("Apartment", selectedApartment);
-        await Shell.Current.GoToAsync($"//{nameof(HomePage)}", true, parameters);
+        await Shell.Current.GoToAsync($"{nameof(HomePage)}", true, parameters);
     }
 }

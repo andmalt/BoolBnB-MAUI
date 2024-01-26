@@ -56,14 +56,20 @@ public partial class HeaderContent : ContentView
         }
     }
 
-    private void GoBackToMain(object sender, EventArgs e)
+    private async void GoBackToMain(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        if (!Shell.Current.GoToAsync("..").IsCompleted)
+        {
+            await Shell.Current.GoToAsync("..");            
+        }
+        else
+        {
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        }
     }
 
     private void GoToDashboard(object sender, EventArgs e)
-    {
-        
+    {  
         // Action to go to dashboard
         Shell.Current.GoToAsync($"//{nameof(InfoPage)}");
     }
