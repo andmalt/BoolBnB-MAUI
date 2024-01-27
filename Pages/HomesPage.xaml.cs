@@ -3,7 +3,7 @@ using BoolBnB_MAUI.Data.Guest;
 using BoolBnB_MAUI.Services;
 using BoolBnB_MAUI.Services.Interface;
 using CommunityToolkit.Maui.Core.Extensions;
-using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace BoolBnB_MAUI.Pages;
 
@@ -12,6 +12,7 @@ public partial class HomesPage : ContentPage
 	private readonly IHttpService _httpService;
 	private readonly AuthService _authService;
     private bool isAuth;
+    public ICommand ItemTappedCommand { get; }
     public bool IsAuth
     {
         get => isAuth;
@@ -28,6 +29,7 @@ public partial class HomesPage : ContentPage
 		InitializeComponent();
 		_httpService = new HttpService();
         _authService = new AuthService();
+        ItemTappedCommand = new Command<Apartment>(OnItemSelected);
     }
 
     private void EnableBinding()
@@ -86,19 +88,16 @@ public partial class HomesPage : ContentPage
 
     }
 
-    private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private async void OnItemSelected(Apartment apartment)
     {
         //Console.WriteLine($"Selected Object: {e.SelectedItem}");
-        if (e.SelectedItem == null)
-            return;
-
-        var selectedApartment = e.SelectedItem as Apartment;
-        //DisplayAlert("Selezione", $"Hai selezionato {selectedApartment.Title}", "OK");
-
-        // Deseleziona l'elemento
-        ((ListView)sender).SelectedItem = null;
-        var parameters = new Dictionary<string, object>();
-        parameters.Add("Apartment", selectedApartment);
-        await Shell.Current.GoToAsync($"{nameof(HomePage)}", true, parameters);
+        if (apartment != null)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("Apartment", apartment);
+            await Shell.Current.GoToAsync($"{nameof(HomePage)}", true, parameters);
+        }
+        // Deselect item
+        housesList.SelectedItem = null;
     }
 }

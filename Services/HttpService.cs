@@ -9,7 +9,7 @@ namespace BoolBnB_MAUI.Services
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _serializerOptions;
-        public const string BaseUrl = "https://4449-79-23-15-49.ngrok-free.app{0}";
+        public const string BaseUrl = "https://f67e-79-23-15-49.ngrok-free.app{0}";
         public HttpService() {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
