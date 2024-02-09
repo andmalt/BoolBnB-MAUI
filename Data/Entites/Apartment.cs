@@ -51,7 +51,7 @@ namespace BoolBnB_MAUI.Data.Entites
                     else
                     {
                         // If not, prepend the BaseUrl
-                        return string.Format(HttpService.BaseUrl, $"/{Photos.First().ImageUrl}");
+                        return string.Format(HttpService.BaseUrl, $"/storage/apartments/images/{Photos.First().ImageUrl}");
                     }
                 }
                 else

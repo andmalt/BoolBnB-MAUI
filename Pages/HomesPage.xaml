@@ -5,20 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:BoolBnB_MAUI.Components"
     x:Name="this">
-    <AbsoluteLayout>
+    <Grid RowDefinitions="30,*">
         <!--  Header  -->
         <StackLayout
             x:Name="menuIcon"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="All"
-            IsVisible="True"
-            ZIndex="10">
+            Grid.Row="0"
+            IsVisible="True">
             <components:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
         </StackLayout>
-        <Grid
-            Padding="8"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="All">
+        <Grid Grid.Row="1" Padding="20,2,20,2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
@@ -36,14 +31,16 @@
                 x:Name="housesList"
                 Grid.Row="1"
                 VerticalOptions="FillAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame
-                            Margin="5"
-                            Padding="10"
+                            Margin="8"
+                            Padding="14"
                             BackgroundColor="White"
-                            CornerRadius="10"
-                            HasShadow="True">
+                            CornerRadius="10">
                             <Grid
                                 BackgroundColor="Transparent"
                                 ColumnDefinitions="Auto,*"
@@ -98,5 +95,5 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-    </AbsoluteLayout>
+    </Grid>
 </ContentPage>

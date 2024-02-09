@@ -5,6 +5,10 @@
     <Color x:Key="Link">#0060df</Color>
     <Color x:Key="LightLink">#3380E5</Color>
     <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="LightBackground">#E2E8F0</Color>
+    <Color x:Key="LightBackgroundPrimary">#F1F5F9</Color>
+    <Color x:Key="DarkBackground">#6366f1</Color>
+    <Color x:Key="DarkBackgroundPrimary">#111827</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="White">White</Color>

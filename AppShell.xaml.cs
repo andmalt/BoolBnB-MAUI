@@ -10,6 +10,7 @@ namespace BoolBnB_MAUI
         {
             InitializeComponent();
             _authService = new AuthService();
+            App.Current.UserAppTheme = AppTheme.Light;
 
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(HomesPage), typeof(HomesPage));

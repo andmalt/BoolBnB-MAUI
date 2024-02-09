@@ -2,31 +2,89 @@
 <ContentPage
     x:Class="BoolBnB_MAUI.Pages.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <VerticalStackLayout>
-        <StackLayout Padding="20">
-            <ContentView x:Name="errPass" IsVisible="false">
-                <Label FontSize="Large" Text="La password è sbagliata" />
-            </ContentView>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource LightBackgroundPrimary}">
+    <Grid RowDefinitions="60,*">
+        <ContentView
+            x:Name="errPass"
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            IsVisible="false"
+            VerticalOptions="End">
+            <Label
+                FontSize="Medium"
+                Text="Le credenziali sono sbagliate"
+                TextColor="Red" />
+        </ContentView>
+        <StackLayout
+            x:Name="formLayout"
+            Grid.Row="1"
+            Padding="20"
+            HorizontalOptions="Center"
+            Spacing="25"
+            VerticalOptions="Center">
 
+            <!--  logo app  -->
             <Image
-                Aspect="Center"
-                HeightRequest="450"
-                Source="dotnet_bot.svg" />
+                Aspect="AspectFit"
+                HeightRequest="100"
+                Source="home_icon.png" />
+            <Label
+                FontSize="35"
+                HorizontalOptions="Center"
+                Text="BoolBnB"
+                TextColor="{StaticResource DarkBackground}" />
+            <!--  end logo  -->
 
-            <Entry
-                x:Name="Username"
-                Placeholder="Insert username"
-                TextChanged="OnEmailChanged" />
-            <Entry
-                x:Name="Password"
-                Margin="0,15,0,65"
-                IsPassword="True"
-                Placeholder="Insert password"
-                TextChanged="OnPasswordChanged" />
+            <StackLayout Padding="10">
 
-            <Button Clicked="Login" Text="Accedi" />
+                <!--  Username / Email  -->
+                <Label FontSize="Medium" Text="Username" />
+                <Entry
+                    x:Name="Username"
+                    Margin="0,15,0,0"
+                    BackgroundColor="White"
+                    Focused="EntryFocused"
+                    Placeholder="Insert username"
+                    TextChanged="OnEmailChanged"
+                    Unfocused="EntryUnfocused" />
 
+                <!--  Password  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontSize="Medium"
+                    Text="Password" />
+                <Grid RowDefinitions="*">
+                    <Entry
+                        x:Name="Password"
+                        Grid.Row="0"
+                        Margin="0,15,0,65"
+                        BackgroundColor="White"
+                        Focused="EntryFocused"
+                        IsPassword="True"
+                        Placeholder="Insert password"
+                        TextChanged="OnPasswordChanged"
+                        Unfocused="EntryUnfocused" />
+                    <ImageButton
+                        x:Name="eyeImage"
+                        Grid.Row="0"
+                        Margin="0,15,10,0"
+                        Padding="6"
+                        BackgroundColor="Transparent"
+                        Command="{Binding TogglePasswordVisibilityCommand}"
+                        HeightRequest="10"
+                        HorizontalOptions="End"
+                        Source="eye_slash.png"
+                        VerticalOptions="Start"
+                        WidthRequest="10" />
+                </Grid>
+
+                <Button
+                    BackgroundColor="{StaticResource DarkBackground}"
+                    Clicked="Login"
+                    CornerRadius="10"
+                    Text="Accedi" />
+            </StackLayout>
         </StackLayout>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
