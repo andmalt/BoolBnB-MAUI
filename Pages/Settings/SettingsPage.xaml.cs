@@ -1,6 +1,7 @@
+using BoolBnB_MAUI.Pages.Main;
 using BoolBnB_MAUI.Services;
 
-namespace BoolBnB_MAUI.Pages;
+namespace BoolBnB_MAUI.Pages.Settings;
 
 public partial class SettingsPage : ContentPage
 {

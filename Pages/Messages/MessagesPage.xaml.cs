@@ -1,4 +1,4 @@
-namespace BoolBnB_MAUI.Pages;
+namespace BoolBnB_MAUI.Pages.Messages;
 
 public partial class MessagesPage : ContentPage
 {

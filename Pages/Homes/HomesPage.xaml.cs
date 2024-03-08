@@ -1,11 +1,12 @@
 using BoolBnB_MAUI.Data.Entites;
 using BoolBnB_MAUI.Data.Guest;
+using BoolBnB_MAUI.Pages.Home;
 using BoolBnB_MAUI.Services;
 using BoolBnB_MAUI.Services.Interface;
 using CommunityToolkit.Maui.Core.Extensions;
 using System.Windows.Input;
 
-namespace BoolBnB_MAUI.Pages;
+namespace BoolBnB_MAUI.Pages.Homes;
 
 public partial class HomesPage : ContentPage
 {

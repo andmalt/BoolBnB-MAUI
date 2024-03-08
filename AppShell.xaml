@@ -3,73 +3,76 @@
     x:Class="BoolBnB_MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:CreateUpdate="clr-namespace:BoolBnB_MAUI.Pages.CreateUpdateHouse"
+    xmlns:Home="clr-namespace:BoolBnB_MAUI.Pages.Home"
+    xmlns:Homes="clr-namespace:BoolBnB_MAUI.Pages.Homes"
+    xmlns:Info="clr-namespace:BoolBnB_MAUI.Pages.Info"
+    xmlns:Login="clr-namespace:BoolBnB_MAUI.Pages.Login"
+    xmlns:Main="clr-namespace:BoolBnB_MAUI.Pages.Main"
+    xmlns:Messages="clr-namespace:BoolBnB_MAUI.Pages.Messages"
+    xmlns:MyHouse="clr-namespace:BoolBnB_MAUI.Pages.MyHouse"
+    xmlns:MyHouses="clr-namespace:BoolBnB_MAUI.Pages.MyHouses"
+    xmlns:Settings="clr-namespace:BoolBnB_MAUI.Pages.Settings"
     xmlns:local="clr-namespace:BoolBnB_MAUI"
-    xmlns:pages="clr-namespace:BoolBnB_MAUI.Pages"
     Shell.BackgroundColor="{StaticResource Gray100}"
     Shell.FlyoutBehavior="Flyout"
     Shell.ForegroundColor="Black">
 
     <ShellContent
-        ContentTemplate="{DataTemplate pages:MainPage}"
+        ContentTemplate="{DataTemplate Main:MainPage}"
         Route="MainPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        ContentTemplate="{DataTemplate pages:LoginPage}"
+        ContentTemplate="{DataTemplate Login:LoginPage}"
         Route="LoginPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        ContentTemplate="{DataTemplate pages:HomesPage}"
+        ContentTemplate="{DataTemplate Homes:HomesPage}"
         Route="HomesPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        ContentTemplate="{DataTemplate pages:HomePage}"
+        ContentTemplate="{DataTemplate Home:HomePage}"
         Route="HomePage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False" />
     <ShellContent
         Title="Create House"
-        ContentTemplate="{DataTemplate pages:CreateHousePage}"
+        ContentTemplate="{DataTemplate CreateUpdate:CreateUpdateHousePage}"
         Route="CreateHousePage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        Title="Update House"
-        ContentTemplate="{DataTemplate pages:UpdateHousePage}"
-        Route="UpdateHousePage"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
-    <ShellContent
         Title="My House"
-        ContentTemplate="{DataTemplate pages:MyHousePage}"
+        ContentTemplate="{DataTemplate MyHouse:MyHousePage}"
         Route="MyHousePage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <FlyoutItem Title="My houses">
         <ShellContent
             Title="My Houses"
-            ContentTemplate="{DataTemplate pages:MyHousesPage}"
+            ContentTemplate="{DataTemplate MyHouses:MyHousesPage}"
             Route="MyHousesPage" />
     </FlyoutItem>
     <FlyoutItem Title="Messages">
         <ShellContent
             Title="Messages"
-            ContentTemplate="{DataTemplate pages:MessagesPage}"
+            ContentTemplate="{DataTemplate Messages:MessagesPage}"
             Route="MessagesPage" />
     </FlyoutItem>
     <FlyoutItem Title="Info">
         <ShellContent
             Title="Info"
-            ContentTemplate="{DataTemplate pages:InfoPage}"
+            ContentTemplate="{DataTemplate Info:InfoPage}"
             Route="InfoPage" />
     </FlyoutItem>
     <FlyoutItem Title="Settings">
         <ShellContent
             Title="Settings"
-            ContentTemplate="{DataTemplate pages:SettingsPage}"
+            ContentTemplate="{DataTemplate Settings:SettingsPage}"
             Route="SettingsPage" />
     </FlyoutItem>
     <Shell.FlyoutFooter>

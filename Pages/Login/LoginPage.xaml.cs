@@ -1,8 +1,8 @@
+using BoolBnB_MAUI.Pages.Info;
 using BoolBnB_MAUI.Services;
-using Microsoft.Maui.Controls;
 using System.Windows.Input;
 
-namespace BoolBnB_MAUI.Pages;
+namespace BoolBnB_MAUI.Pages.Login;
 
 public partial class LoginPage : ContentPage
 {

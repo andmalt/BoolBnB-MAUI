@@ -3,7 +3,7 @@ using BoolBnB_MAUI.Data.Guest;
 using BoolBnB_MAUI.Services;
 using BoolBnB_MAUI.Services.Interface;
 
-namespace BoolBnB_MAUI.Pages;
+namespace BoolBnB_MAUI.Pages.Home;
 
 [QueryProperty(nameof(Apartment), "Apartment")]
 public partial class HomePage : ContentPage

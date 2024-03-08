@@ -1,4 +1,6 @@
-using BoolBnB_MAUI.Pages;
+using BoolBnB_MAUI.Pages.Info;
+using BoolBnB_MAUI.Pages.Login;
+using BoolBnB_MAUI.Pages.Main;
 
 namespace BoolBnB_MAUI.Components;
 

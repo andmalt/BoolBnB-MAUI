@@ -1,4 +1,4 @@
-namespace BoolBnB_MAUI.Pages;
+namespace BoolBnB_MAUI.Pages.MyHouse;
 
 public partial class MyHousePage : ContentPage
 {

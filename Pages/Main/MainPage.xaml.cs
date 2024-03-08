@@ -1,6 +1,7 @@
-﻿using BoolBnB_MAUI.Services;
+﻿using BoolBnB_MAUI.Pages.Homes;
+using BoolBnB_MAUI.Services;
 
-namespace BoolBnB_MAUI.Pages
+namespace BoolBnB_MAUI.Pages.Main
 {
     public partial class MainPage : ContentPage
     {
