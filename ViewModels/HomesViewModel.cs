@@ -77,7 +77,7 @@ namespace BoolBnB_MAUI.ViewModels
             {
                 var parameters = new Dictionary<string, object>();
                 parameters.Add("Apartment", apartment);
-                await Shell.Current.GoToAsync($"///{nameof(HomePage)}", true, parameters);
+                await Shell.Current.GoToAsync($"{nameof(HomePage)}", true, parameters);
             }
             // Deselect item
             //housesList.SelectedItem = null;

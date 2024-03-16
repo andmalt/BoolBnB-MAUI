@@ -22,17 +22,20 @@
         ContentTemplate="{DataTemplate Main:MainPage}"
         Route="MainPage"
         Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False" />
     <ShellContent
         ContentTemplate="{DataTemplate Login:LoginPage}"
         Route="LoginPage"
         Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False" />
     <ShellContent
         ContentTemplate="{DataTemplate Homes:HomesPage}"
         Route="HomesPage"
         Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False" />
     <ShellContent
         ContentTemplate="{DataTemplate Home:HomePage}"
         Route="HomePage"
@@ -44,13 +47,15 @@
         ContentTemplate="{DataTemplate CreateUpdate:CreateUpdateHousePage}"
         Route="CreateHousePage"
         Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False" />
     <ShellContent
         Title="My House"
         ContentTemplate="{DataTemplate MyHouse:MyHousePage}"
         Route="MyHousePage"
         Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False" />
     <FlyoutItem Title="My houses">
         <ShellContent
             Title="My Houses"

@@ -42,21 +42,6 @@ namespace BoolBnB_MAUI.Pages.Main
             }
         }
 
-        protected override async void OnNavigatingFrom(NavigatingFromEventArgs args)
-        {
-            base.OnNavigatingFrom(args);
-            Console.WriteLine("Navigated");
-
-            if (await _authService.IsAuthenticatedAsync())
-            {
-                IsAuth = true;
-            }
-            else
-            {
-                IsAuth = false;
-            }
-        }
-
         private async void GoToHomesPages(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync($"//{nameof(HomesPage)}");

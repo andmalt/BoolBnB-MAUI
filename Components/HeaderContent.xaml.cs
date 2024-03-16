@@ -62,12 +62,20 @@ public partial class HeaderContent : ContentView
     {
         if (!Shell.Current.GoToAsync("..").IsCompleted)
         {
-            await Shell.Current.GoToAsync("..");            
+            await Shell.Current.GoToAsync("..");
         }
         else
         {
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
+        //try
+        //{
+        //    await Shell.Current.GoToAsync("..");
+        //}
+        //catch 
+        //{
+        //    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        //}
     }
 
     private void GoToDashboard(object sender, EventArgs e)
