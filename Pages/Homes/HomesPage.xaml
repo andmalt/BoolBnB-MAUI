@@ -4,13 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:BoolBnB_MAUI.Components"
+    xmlns:homes="clr-namespace:BoolBnB_MAUI.Pages.Homes"
+    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+    xmlns:model="clr-namespace:BoolBnB_MAUI.Data.Entites"
+    xmlns:viewmodel="clr-namespace:BoolBnB_MAUI.ViewModels"
     x:Name="this">
+    <ContentPage.BindingContext>
+        <viewmodel:HomesViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <!--<mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
+    </ContentPage.Behaviors>
     <Grid RowDefinitions="30,*">
         <!--  Header  -->
-        <StackLayout
-            x:Name="menuIcon"
-            Grid.Row="0"
-            IsVisible="True">
+        <StackLayout Grid.Row="0" IsVisible="{Binding IsVisibleMenu}">
             <components:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
         </StackLayout>
         <Grid Grid.Row="1" Padding="20,2,20,2">
@@ -20,22 +28,23 @@
             </Grid.RowDefinitions>
             <!--  loading indicator  -->
             <ActivityIndicator
-                x:Name="loadingIndicator"
                 Grid.Row="1"
                 HorizontalOptions="CenterAndExpand"
-                IsRunning="False"
-                IsVisible="False"
+                IsRunning="True"
+                IsVisible="{Binding IsVisibleLoading}"
                 VerticalOptions="CenterAndExpand" />
             <!--  Homes list  -->
             <CollectionView
-                x:Name="housesList"
                 Grid.Row="1"
+                IsVisible="{Binding IsVisibleList}"
+                ItemsSource="{Binding Apartments}"
+                SelectionMode="Single"
                 VerticalOptions="FillAndExpand">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="model:Apartment">
                         <Frame
                             Margin="8"
                             Padding="14"
@@ -47,7 +56,7 @@
                                 RowDefinitions="Auto,Auto">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding BindingContext.ItemTappedCommand, Source={x:Reference this}}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type homes:HomesPage}}, Path=BindingContext.ItemSelectedCommand}"
                                         CommandParameter="{Binding .}"
                                         NumberOfTapsRequired="1" />
                                 </Grid.GestureRecognizers>
