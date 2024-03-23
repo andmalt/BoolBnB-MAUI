@@ -11,15 +11,15 @@
     x:Name="this"
     Shell.NavBarIsVisible="False">
     <ContentPage.BindingContext>
-        <viewmodel:HomesViewModel />
+        <viewmodel:HomesViewModel x:Name="HomesViewModel" />
     </ContentPage.BindingContext>
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <!--<mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="30,*">
+    <Grid RowDefinitions="30,*,60">
         <!--  Header  -->
-        <StackLayout Grid.Row="0" IsVisible="{Binding IsVisibleMenu}">
+        <StackLayout Grid.Row="0" IsVisible="{Binding IsVisible}">
             <components:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
         </StackLayout>
         <Grid Grid.Row="1" Padding="20,2,20,2">
@@ -37,7 +37,7 @@
             <!--  Homes list  -->
             <CollectionView
                 Grid.Row="1"
-                IsVisible="{Binding IsVisibleList}"
+                IsVisible="{Binding IsVisible}"
                 ItemsSource="{Binding Apartments}"
                 SelectionMode="Single"
                 VerticalOptions="FillAndExpand">
@@ -104,6 +104,76 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+        </Grid>
+        <!--  bottom section where there is pagination  -->
+        <Grid
+            Grid.Row="2"
+            Background="Transparent"
+            BackgroundColor="Transparent"
+            ColumnDefinitions="20*,20*,20*,20*,20*"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding IsVisible}"
+            RowDefinitions="*"
+            VerticalOptions="Center">
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalOptions="Center">
+
+                <ImageButton
+                    Command="{Binding Source={x:Reference HomesViewModel}, Path=FirstPageCommand}"
+                    HeightRequest="20"
+                    Source="start.png"
+                    WidthRequest="20" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="Center">
+
+                <ImageButton
+                    Command="{Binding Source={x:Reference HomesViewModel}, Path=PreviousPageCommand}"
+                    HeightRequest="20"
+                    Source="arrow_left.png"
+                    WidthRequest="20" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding CurrentPage}" />
+                            <Span Text="/" />
+                            <Span Text="{Binding LastPage}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="3"
+                HorizontalOptions="Center">
+                <ImageButton
+                    Command="{Binding Source={x:Reference HomesViewModel}, Path=NextPageCommand}"
+                    HeightRequest="20"
+                    Source="arrow_right.png"
+                    WidthRequest="20" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="4"
+                HorizontalOptions="Center">
+                <ImageButton
+                    Command="{Binding Source={x:Reference HomesViewModel}, Path=Last_PageCommand}"
+                    HeightRequest="20"
+                    Source="end.png"
+                    WidthRequest="20" />
+            </StackLayout>
         </Grid>
     </Grid>
 </ContentPage>

@@ -16,20 +16,25 @@ namespace BoolBnB_MAUI.ViewModels
         private readonly IHttpService _httpService;
         private readonly AuthService _authService;
 
-        [ObservableProperty]
-        public ObservableCollection<Apartment> apartments;
+        public event EventHandler<string> RequestDisplayAlert;
 
         [ObservableProperty]
-        public bool isAuth;
+        private ObservableCollection<Apartment> apartments;
 
         [ObservableProperty]
-        public bool isVisibleLoading;
+        private bool isAuth;
 
         [ObservableProperty]
-        public bool isVisibleMenu;
+        private bool isVisible;
 
         [ObservableProperty]
-        public bool isVisibleList;
+        private bool isVisibleLoading;
+
+        [ObservableProperty]
+        private int currentPage;
+
+        [ObservableProperty]
+        private int lastPage;
 
         public HomesViewModel()
         {
@@ -51,21 +56,26 @@ namespace BoolBnB_MAUI.ViewModels
                     IsAuth = false;
                 }
 
-                IsVisibleMenu = false;
-                IsVisibleList = false;
+                IsVisible = false;
                 IsVisibleLoading = true;
                 var response = await GetApartmentsAsync();
                 if (response.Success)
                 {
-                    Apartments = response.Apartments.Data.ToObservableCollection(); ;
-                    IsVisibleList = true;
+                    LastPage = response.Apartments.LastPage;
+                    CurrentPage = response.Apartments.CurrentPage;
+                    Apartments = response.Apartments.Data.ToObservableCollection();
+                    IsVisible = true;
                 }
                 IsVisibleLoading = false;
-                IsVisibleMenu = true;
             }
             catch(Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                var innerException = ex.InnerException?.Message;
+                var error = string.IsNullOrEmpty(innerException) ? ex.Message : innerException;
+                IsVisibleLoading = false;
+                IsVisible = true;
+                OnRequestDisplayAlert($"Unable to get data, network connection lost, check your connection.\nError: {error}");
+                //System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
             }
         }
 
@@ -81,6 +91,115 @@ namespace BoolBnB_MAUI.ViewModels
             }
             // Deselect item
             //housesList.SelectedItem = null;
+        }
+
+        [RelayCommand]
+        public async Task PreviousPage()
+        {
+            if (CurrentPage <= 1)
+            {
+                return;
+            }
+
+            try
+            {               
+                CurrentPage--;
+                await Pagination($"/api/homes-mobile?page={CurrentPage}");
+            }
+            catch (Exception ex)
+            {
+                CurrentPage++;
+                OnRequestDisplayAlert($"There is an error that in changing page , check connection.\nError: {ex.Message}");
+            }
+
+
+        }
+
+        [RelayCommand]
+        public async Task NextPage()
+        {
+            if (CurrentPage >= LastPage)
+            {
+                return;
+            }
+
+            try
+            {
+                CurrentPage++;
+                await Pagination($"/api/homes-mobile?page={CurrentPage}");
+            }
+            catch (Exception ex)
+            {
+                CurrentPage--;
+                OnRequestDisplayAlert($"There is an error that in changing page , check connection.\nError: {ex.Message}");
+            }
+        }
+
+        [RelayCommand]
+        public async Task FirstPage()
+        {
+            if (CurrentPage <= 1)
+            {
+                return;
+            }
+
+            try
+            {
+                await Pagination($"/api/homes-mobile?page=1");
+            }
+            catch (Exception ex)
+            {
+                OnRequestDisplayAlert($"There is an error that in changing page , check connection.\nError: {ex.Message}");
+            }
+        }
+
+        [RelayCommand]
+        public async Task Last_Page()
+        {
+            if (CurrentPage >= LastPage)
+            {
+                return;
+            }
+
+            try
+            {
+                await Pagination($"/api/homes-mobile?page={LastPage}");
+            }
+            catch (Exception ex)
+            {
+                OnRequestDisplayAlert($"There is an error that in changing page , check connection.\nError: {ex.Message}");
+            }
+        }
+
+        protected virtual void OnRequestDisplayAlert(string message)
+        {
+            RequestDisplayAlert?.Invoke(this,message);
+        }
+
+        private async Task Pagination(string url)
+        {
+            try
+            {
+                IsVisible = false;
+                IsVisibleLoading = true;
+                var response = await _httpService.Get<HousesResponse>(url);
+                if (response.Success)
+                {
+                    LastPage = response.Apartments.LastPage;
+                    CurrentPage = response.Apartments.CurrentPage;
+                    Apartments = response.Apartments.Data.ToObservableCollection();
+                    IsVisible = true;
+                }
+                IsVisibleLoading = false;
+            }
+            catch(Exception ex)
+            {
+                var innerException = ex.InnerException?.Message;
+                var error = string.IsNullOrEmpty(innerException) ? ex.Message : innerException;
+                IsVisibleLoading = false;
+                IsVisible = true;
+                OnRequestDisplayAlert($"There is an error in the pagination.\nError: {error}");
+            }
         }
 
         private async Task<HousesResponse> GetApartmentsAsync()
@@ -105,9 +224,9 @@ namespace BoolBnB_MAUI.ViewModels
             }
             catch (HttpRequestException ex)
             {
-                //DisplayAlert("Errore", "Imposibile ottenere dati, connessione internet mancante.", "Ok");
-                Console.WriteLine($"ERROR (getApartments):{ex.Message}");
-                throw;
+                Console.WriteLine($"httpRequest error: {ex.Message}");
+                OnRequestDisplayAlert("Unable to get data, network connection lost.");
+                return null;
             }
 
         }
