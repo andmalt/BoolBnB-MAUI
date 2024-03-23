@@ -1,6 +1,6 @@
+using BoolBnB_MAUI.Pages.Homes;
 using BoolBnB_MAUI.Pages.Info;
 using BoolBnB_MAUI.Pages.Login;
-using BoolBnB_MAUI.Pages.Main;
 
 namespace BoolBnB_MAUI.Components;
 
@@ -66,7 +66,7 @@ public partial class HeaderContent : ContentView
         }
         else
         {
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomesPage)}");
         }
         //try
         //{

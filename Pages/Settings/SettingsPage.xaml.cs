@@ -1,4 +1,4 @@
-using BoolBnB_MAUI.Pages.Main;
+using BoolBnB_MAUI.Pages.Homes;
 using BoolBnB_MAUI.Services;
 
 namespace BoolBnB_MAUI.Pages.Settings;
@@ -20,13 +20,13 @@ public partial class SettingsPage : ContentPage
 		Token = await _authService.GetToken();
 		if (Token == null)
 		{
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomesPage)}");
         }
 		
     }
 
 	private async void GoToMain(object sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+		await Shell.Current.GoToAsync($"//{nameof(HomesPage)}");
 	}
 }

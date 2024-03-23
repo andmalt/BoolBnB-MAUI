@@ -3,7 +3,6 @@ using BoolBnB_MAUI.Pages.Home;
 using BoolBnB_MAUI.Pages.Homes;
 using BoolBnB_MAUI.Pages.Info;
 using BoolBnB_MAUI.Pages.Login;
-using BoolBnB_MAUI.Pages.Main;
 using BoolBnB_MAUI.Pages.MyHouses;
 using BoolBnB_MAUI.Pages.MyHouse;
 using BoolBnB_MAUI.Pages.Settings;
@@ -21,7 +20,6 @@ namespace BoolBnB_MAUI
             _authService = new AuthService();
             App.Current.UserAppTheme = AppTheme.Light;
 
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(HomesPage), typeof(HomesPage));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
@@ -40,7 +38,7 @@ namespace BoolBnB_MAUI
             if (isLogout)
             {
                 //
-                await Current.GoToAsync($"//{nameof(MainPage)}");
+                await Current.GoToAsync($"//{nameof(HomesPage)}");
             }
             else
             {

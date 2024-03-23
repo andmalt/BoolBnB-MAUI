@@ -8,7 +8,6 @@
     xmlns:Homes="clr-namespace:BoolBnB_MAUI.Pages.Homes"
     xmlns:Info="clr-namespace:BoolBnB_MAUI.Pages.Info"
     xmlns:Login="clr-namespace:BoolBnB_MAUI.Pages.Login"
-    xmlns:Main="clr-namespace:BoolBnB_MAUI.Pages.Main"
     xmlns:Messages="clr-namespace:BoolBnB_MAUI.Pages.Messages"
     xmlns:MyHouse="clr-namespace:BoolBnB_MAUI.Pages.MyHouse"
     xmlns:MyHouses="clr-namespace:BoolBnB_MAUI.Pages.MyHouses"
@@ -19,8 +18,8 @@
     Shell.ForegroundColor="Black">
 
     <ShellContent
-        ContentTemplate="{DataTemplate Main:MainPage}"
-        Route="MainPage"
+        ContentTemplate="{DataTemplate Homes:HomesPage}"
+        Route="HomesPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False" />
@@ -30,12 +29,7 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False" />
-    <ShellContent
-        ContentTemplate="{DataTemplate Homes:HomesPage}"
-        Route="HomesPage"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"
-        Shell.NavBarIsVisible="False" />
+
     <ShellContent
         ContentTemplate="{DataTemplate Home:HomePage}"
         Route="HomePage"

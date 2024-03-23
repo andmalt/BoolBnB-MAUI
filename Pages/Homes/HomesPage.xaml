@@ -20,7 +20,7 @@
     <Grid RowDefinitions="30,*,60">
         <!--  Header  -->
         <StackLayout Grid.Row="0" IsVisible="{Binding IsVisible}">
-            <components:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
+            <components:HeaderContent BackArrow="False" IsAuthenticated="{Binding IsAuth}" />
         </StackLayout>
         <Grid Grid.Row="1" Padding="20,2,20,2">
             <Grid.RowDefinitions>
