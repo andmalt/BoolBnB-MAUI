@@ -7,7 +7,7 @@
     xmlns:homes="clr-namespace:BoolBnB_MAUI.Pages.Homes"
     xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
     xmlns:model="clr-namespace:BoolBnB_MAUI.Data.Entites"
-    xmlns:viewmodel="clr-namespace:BoolBnB_MAUI.ViewModels"
+    xmlns:viewmodel="clr-namespace:BoolBnB_MAUI.ViewModels.Homes"
     x:Name="this"
     Shell.NavBarIsVisible="False">
     <ContentPage.BindingContext>

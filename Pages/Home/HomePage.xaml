@@ -4,31 +4,38 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:component="clr-namespace:BoolBnB_MAUI.Components"
+    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+    xmlns:viewmodel="clr-namespace:BoolBnB_MAUI.ViewModels.Home"
     x:Name="self"
     Shell.NavBarIsVisible="False">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
+    <ContentPage.BindingContext>
+        <viewmodel:HomeViewModel x:Name="HomeViewModel" />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <!--<mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
+    </ContentPage.Behaviors>
     <Grid RowDefinitions="auto,*">
         <component:HeaderContent
             Grid.Row="0"
             BackArrow="True"
-            IsAuthenticated="{Binding Source={x:Reference self}, Path=IsAuth}" />
+            IsAuthenticated="{Binding IsAuth}" />
         <ActivityIndicator
-            x:Name="loadingIndicator"
             Grid.Row="1"
             HorizontalOptions="CenterAndExpand"
-            IsRunning="False"
-            IsVisible="False"
+            IsVisible="{Binding IsLoading}"
             VerticalOptions="CenterAndExpand" />
         <VerticalStackLayout Grid.Row="1" Padding="10">
             <Label
                 HorizontalOptions="Center"
-                Text="{Binding Title}"
+                Text="{Binding Apartment.Title}"
                 VerticalOptions="Center" />
             <Label
                 HorizontalOptions="Center"
-                Text="{Binding Description}"
+                Text="{Binding Apartment.Description}"
                 VerticalOptions="Center" />
         </VerticalStackLayout>
     </Grid>
