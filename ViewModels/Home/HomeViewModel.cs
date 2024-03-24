@@ -22,6 +22,18 @@ namespace BoolBnB_MAUI.ViewModels.Home
         [ObservableProperty]
         private Apartment apartment;
 
+        [ObservableProperty]
+        private string name;
+
+        [ObservableProperty]
+        private string lastName;
+
+        [ObservableProperty]
+        private string email;
+
+        [ObservableProperty]
+        private string message;
+
         public HomeViewModel() 
         {
             _httpService = new HttpService();
@@ -52,6 +64,35 @@ namespace BoolBnB_MAUI.ViewModels.Home
                 Console.WriteLine($"ERROR Appearing(getApartment):{ex.Message}");
             }
             
+        }
+
+        [RelayCommand]
+        public async Task SendContactForm()
+        {
+            var request = new FormRequest
+            {
+                Name = Name,
+                Surname = LastName,
+                Email = Email,
+                MessageContent = Message,
+                HouseId = Apartment.Id,
+            };
+            try
+            {
+                var response = await _httpService.Post<FormResponse,FormRequest>("/api/message/send",request);
+                if (response.Success)
+                {
+                    // handle when the message is sent.
+                    Name = "";
+                    LastName = "";
+                    Email = "";
+                    Message = "";
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
 
         protected async Task GetApartment(Apartment apartment)

@@ -18,25 +18,124 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <!--<mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />-->
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="auto,*">
-        <component:HeaderContent
-            Grid.Row="0"
-            BackArrow="True"
-            IsAuthenticated="{Binding IsAuth}" />
-        <ActivityIndicator
-            Grid.Row="1"
-            HorizontalOptions="CenterAndExpand"
-            IsVisible="{Binding IsLoading}"
-            VerticalOptions="CenterAndExpand" />
-        <VerticalStackLayout Grid.Row="1" Padding="10">
-            <Label
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <component:HeaderContent BackArrow="True" IsAuthenticated="{Binding IsAuth}" />
+            <!--  Carousel apartment photo  -->
+            <CollectionView
+                HeightRequest="300"
                 HorizontalOptions="Center"
-                Text="{Binding Apartment.Title}"
-                VerticalOptions="Center" />
+                ItemsSource="{Binding Apartment.Photos}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Aspect="AspectFill" Source="{Binding ImageUrl}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!--  Title and description  -->
             <Label
+                FontAttributes="Bold"
+                FontSize="22"
                 HorizontalOptions="Center"
-                Text="{Binding Apartment.Description}"
-                VerticalOptions="Center" />
+                Text="{Binding Apartment.Title}" />
+            <Label HorizontalOptions="Center" Text="{Binding Apartment.Description}" />
+            <!--  Apartment details  -->
+            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Camere:" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{Binding Apartment.Rooms}" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Text="Letti:" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Text="{Binding Apartment.Beds}" />
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Bagni:" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding Apartment.Bathrooms}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="Prezzo:" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Text="{Binding Apartment.Price}" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Indirizzo:" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3"
+                    Text="{Binding Apartment.Address}" />
+            </Grid>
+            <!--  Location  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Ubicazione" />
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding Apartment.City}" />
+                        <Span Text=", " />
+                        <Span Text="{Binding Apartment.Region}" />
+                        <Span Text=", " />
+                        <Span Text="{Binding Apartment.Country}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <!--  Map  -->
+            <!--<MapView
+                HeightRequest="200"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                MapType="Street"
+                IsShowingUser="True"
+                Pins="{Binding ApartmentLocationPin}" />-->
+
+            <!--  Contact Form Section  -->
+            <Label
+                Margin="0,40,0,0"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="Contattaci" />
+
+            <VerticalStackLayout Padding="15" Spacing="10">
+                <Entry Placeholder="Nome" Text="{Binding Name}" />
+                <Entry Placeholder="Cognome" Text="{Binding LastName}" />
+                <Entry
+                    Keyboard="Email"
+                    Placeholder="Email"
+                    Text="{Binding Email}" />
+                <Editor
+                    AutoSize="TextChanges"
+                    Placeholder="Messaggio"
+                    Text="{Binding Message}" />
+
+                <Button Command="{Binding SendContactFormCommand}" Text="Invia" />
+            </VerticalStackLayout>
         </VerticalStackLayout>
-    </Grid>
+    </ScrollView>
 </ContentPage>

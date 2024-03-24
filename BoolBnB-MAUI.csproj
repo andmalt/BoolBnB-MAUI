@@ -108,4 +108,12 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Repositories\Guest\Home\" />
+	  <Folder Include="Repositories\Guest\Homes\" />
+	  <Folder Include="Repositories\Guest\Form\" />
+	  <Folder Include="Repositories\Auth\" />
+	  <Folder Include="Repositories\Admin\" />
+	</ItemGroup>
+
 </Project>
